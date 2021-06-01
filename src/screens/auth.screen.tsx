@@ -6,6 +6,8 @@ import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
 // Styles
 import { styles } from '../style/auth.style';
+import ButtonComponent from '../components/button.component';
+import Theme from '../style/theme';
 
 
 type Props = {
@@ -14,12 +16,11 @@ type Props = {
 
 const AuthScreen: FunctionComponent<Props> = (props: Props) => {
 
-  
   const translateY = useRef(new Animated.Value(600)).current;
-  const [isSignIn, setIsSignIn] = useState<boolean>(false);
+  const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
   
   function animateMovement(gesture: PanResponderGestureState): void {
-    translateY.setValue(gesture.dy);
+    if (gesture.dy > 0) translateY.setValue(gesture.dy);
   };
 
   function animateRelease(gesture: PanResponderGestureState): void {
@@ -57,65 +58,49 @@ const AuthScreen: FunctionComponent<Props> = (props: Props) => {
         style={{flex: 1}}
       >
         <ImageBackground source={require('../../assets/Photo-1.jpg')} style={{ flex: 1 }}>
-          <Image source={require('../../assets/Plannit-logo-blanc.png')} resizeMode='contain' style={{width: '100%', height: '10%', marginTop: 100}}/>
-          <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center', marginBottom: 100}}>
-            <View style={{width: Dimensions.get('screen').width * 0.75, shadowColor: "#000", 
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-              elevation: 5,}}
+          <Image source={require('../../assets/Plannit-logo-blanc.png')} resizeMode='contain' style={styles.image}/>
+          <View style={styles.buttonsContainer}>
+            <View style={styles.buttonContainer}
             >
-              <TouchableOpacity onPress={openForm} style={styles.btn}>
-                <LinearGradient start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}} colors={['#47bed8', '#ab5099']} style={{width: '100%'}}>
-                  <Text style={{textAlign: 'center', paddingVertical: 15, color: 'white', fontSize: 16, fontFamily: 'Montserrat-Bold'}}>
-                    Se connecter
-                  </Text>
-                </LinearGradient>
-              </TouchableOpacity>
+              <ButtonComponent
+                onPress={openForm}
+                gradient={Theme.PRIMARY_GRADIENT}
+                text="Se connecter"
+              />
             </View>
-            <View style={{width: Dimensions.get('screen').width * 0.75, shadowColor: "#000", 
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-              elevation: 5,}}
+            <View style={styles.buttonContainer}
             >
-              <TouchableOpacity style={[styles.btn, {backgroundColor: "white"}]}>
-                <Text style={{textAlign: 'center', paddingVertical: 15, fontSize: 16, fontFamily: 'Montserrat-Bold'}}>
-                  S'inscrire
-                </Text>
-              </TouchableOpacity>
+
+              <ButtonComponent
+                onPress={openForm}
+                style={{ backgroundColor: 'white' }}
+                text="S'inscrire"
+                textStyle={{ color: 'black' }}
+              />
             </View>
           </View>
           
-          <Animated.View {...panResponder.panHandlers} style={{position: 'absolute', bottom: 20, backgroundColor: 'white', width: '100%', borderTopLeftRadius: 40, borderTopRightRadius: 40, paddingTop: 50, transform: [{translateY}]}}>
-            <Text style={{fontFamily: 'Montserrat-Bold', fontSize: 32, marginHorizontal: 50, marginVertical: 20}}>Se connecter</Text>
+          <Animated.View {...panResponder.panHandlers} style={[styles.formContainer, {transform: [{translateY}]}]}>
+            <Text style={styles.formTitle}>Se connecter</Text>
             <View style={{marginBottom: 32}}>
-              <Text style={{fontFamily: 'Montserrat-Medium', fontSize: 16, marginHorizontal: 50, marginBottom: 8}}>Identifiant</Text>
-              <TextInput placeholder='toto' style={{fontFamily: 'Montserrat', fontSize: 16, marginHorizontal: 50, borderBottomWidth: 1}}/>
+              <Text style={styles.formLabel}>Email</Text>
+              <TextInput placeholder='Email' style={styles.formInput}/>
             </View>
             <View style={{marginBottom: 32}}>
-              <Text style={{fontFamily: 'Montserrat-Medium', fontSize: 16, marginHorizontal: 50, marginBottom: 8}}>Email</Text>
-              <TextInput placeholder='toto' style={{fontFamily: 'Montserrat', fontSize: 16, marginHorizontal: 50, borderBottomWidth: 1}}/>
+              <Text style={styles.formLabel}>Mot de passe</Text>
+              <TextInput placeholder='Mot de passe' secureTextEntry={true} style={styles.formInput}/>
             </View>
             <View style={{marginBottom: 32}}>
-              <Text style={{fontFamily: 'Montserrat-Medium', fontSize: 16, marginHorizontal: 50, marginBottom: 8}}>Mot de passe</Text>
-              <TextInput placeholder='toto' secureTextEntry={true} style={{fontFamily: 'Montserrat', fontSize: 16, marginHorizontal: 50, borderBottomWidth: 1}}/>
+              <Text style={styles.formLabel}>Date de naissance</Text>
+              <TextInput placeholder='Date de naissance' style={styles.formInput}/>
             </View >
             <View style={{marginHorizontal: 50, marginBottom: 25}}>
-              <TouchableOpacity onPress={openForm} style={styles.btn}>
-                <LinearGradient start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}} colors={['#47bed8', '#ab5099']} style={{width: '100%'}}>
-                  <Text style={{textAlign: 'center', paddingVertical: 15, color: 'white', fontSize: 16, fontFamily: 'Montserrat-Bold'}}>
-                    Se connecter
-                  </Text>
-                </LinearGradient>
-              </TouchableOpacity>
-              <Text style={{textAlign: 'center', paddingVertical: 15, fontSize: 16, fontFamily: 'Montserrat-Bold'}}>
+              <ButtonComponent
+                onPress={openForm}
+                gradient={Theme.PRIMARY_GRADIENT}
+                text="Se connecter"
+              />
+              <Text style={styles.changeFormText}>
                 S'inscrire
               </Text>
             </View>

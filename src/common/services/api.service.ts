@@ -73,13 +73,11 @@ export class ApiService {
         },
         ...(!!options.body && { body: JSON.stringify(options.body) }),
       }).then(async (response: Response) => {
-        if (!options.isReturningContent && response.ok) return response;
         const resJson = await response.json();
 
-        return resJson;
+        resolve(resJson);
 
       }).catch((error: unknown) => {
-
         reject(error);
 
       });

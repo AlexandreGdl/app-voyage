@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
     width: '100%', 
     borderTopLeftRadius: 40, 
     borderTopRightRadius: 40, 
-    paddingTop: 50
+    paddingTop: 50,
   }, 
   formTitle: {
     fontFamily: 'Montserrat-Bold', 
@@ -52,6 +52,9 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1, 
     paddingBottom: 8, 
     paddingLeft: 8
+  },
+  formError: {
+    borderColor: 'red'
   },
   changeFormText: {
     textAlign: 'center', 

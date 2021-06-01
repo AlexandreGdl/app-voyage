@@ -1,6 +1,6 @@
 import { Token } from "../../auth/auth.interface";
 import { ApiService } from "../../common/services/api.service";
-import { loginUserDto } from "../dto/user.dto";
+import { CreateUserDto, loginUserDto } from "../dto/user.dto";
 
 export class UserService {
   private static instance: UserService;
@@ -20,7 +20,21 @@ export class UserService {
   }
 
   public async login(user: loginUserDto): Promise<Token> {
-    return await this.apiService.request('post', '/users/login', { body: user });
+    try {
+      const token = await this.apiService.request<Token>('post', '/users/login', { body: user });
+      return token;
+    } catch (err) {
+      throw new Error(err);
+    }
+  };
+
+  public async signup(user: CreateUserDto): Promise<Token> {
+    try {
+      const token = await this.apiService.request<Token>('post', '/users/signup', { body: user });
+      return token;
+    } catch (err) {
+      throw new Error(err);
+    }
   };
 
 }

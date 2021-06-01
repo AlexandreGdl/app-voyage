@@ -7,6 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/screens/home.screen';
 import { RootStackParamList } from './src/root-stack-parameters-list';
 import MapScreen from './src/screens/map.screen';
+import MarkerDetailScreen from './src/screens/marker-detail.screen';
 
 
 const StackNavigator = createStackNavigator<RootStackParamList>();
@@ -74,6 +75,7 @@ export default function App() {
         />
         <StackNavigator.Screen name="Home" options={{ headerShown: false, animationEnabled: false }} component={HomeScreen} />
         <StackNavigator.Screen name="Map" options={{ headerShown: false, animationEnabled: false }} component={MapScreen} />
+        <StackNavigator.Screen name="MarkerDetail" options={{ headerShown: false }} component={MarkerDetailScreen} />
       </StackNavigator.Navigator>
     </NavigationContainer>
   );

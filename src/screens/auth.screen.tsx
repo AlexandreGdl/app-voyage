@@ -1,7 +1,7 @@
 // React
 import React, { FunctionComponent, useState, useRef } from 'react';
 // Tools
-import { View, Text, ImageBackground, Animated, KeyboardAvoidingView, Platform, Image, PanResponder, GestureResponderEvent, PanResponderGestureState} from 'react-native';
+import { View, Text, ImageBackground, Animated, KeyboardAvoidingView, Platform, Image, PanResponder, GestureResponderEvent, PanResponderGestureState, Keyboard} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -58,6 +58,7 @@ const AuthScreen: FunctionComponent<Props> = (props: Props) => {
       toValue: 600,
       useNativeDriver: true
     }).start();
+    Keyboard.dismiss();
   }
 
   async function handleLoginPressed(): Promise<void> {
@@ -76,7 +77,6 @@ const AuthScreen: FunctionComponent<Props> = (props: Props) => {
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         style={{flex: 1}}
       >
-        <View></View>
         <ImageBackground source={require('../../assets/Photo-1.jpg')} style={{ flex: 1 }}>
           <Image source={require('../../assets/Plannit-logo-blanc.png')} resizeMode='contain' style={styles.image}/>
           <View style={styles.buttonsContainer}>

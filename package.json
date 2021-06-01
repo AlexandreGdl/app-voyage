@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.0",
+    "@react-native-community/async-storage": "^1.12.1",
+    "babel-plugin-inline-dotenv": "^1.6.0",
     "expo": "~40.0.0",
     "expo-font": "~8.4.0",
     "expo-linear-gradient": "~8.4.0",

@@ -1,13 +1,15 @@
 // React
 import React, { FunctionComponent, useState, useRef } from 'react';
 // Tools
-import { View, Text, ImageBackground, Dimensions, Animated, KeyboardAvoidingView, Platform, Image, PanResponder, GestureResponderEvent, PanResponderGestureState} from 'react-native';
-import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
-import { LinearGradient } from 'expo-linear-gradient';
+import { View, Text, ImageBackground, Animated, KeyboardAvoidingView, Platform, Image, PanResponder, GestureResponderEvent, PanResponderGestureState} from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-community/async-storage';
+
 // Styles
 import { styles } from '../style/auth.style';
 import ButtonComponent from '../components/button.component';
 import Theme from '../style/theme';
+import { UserService } from '../user/service/user.service';
 
 
 type Props = {
@@ -17,6 +19,8 @@ type Props = {
 const AuthScreen: FunctionComponent<Props> = (props: Props) => {
 
   const translateY = useRef(new Animated.Value(600)).current;
+  const [email, setEmail] = useState<string | undefined>(undefined);
+  const [password, setPassword] = useState<string | undefined>(undefined);
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
   
   function animateMovement(gesture: PanResponderGestureState): void {
@@ -25,13 +29,10 @@ const AuthScreen: FunctionComponent<Props> = (props: Props) => {
 
   function animateRelease(gesture: PanResponderGestureState): void {
     if (gesture.vy >= 0.9) {
-      Animated.spring(translateY, {
-        toValue: 600,
-        useNativeDriver: true
-      }).start();
+      closeForm();
     }
     else {
-      openForm()
+      openForm();
     }
   };
 
@@ -51,12 +52,31 @@ const AuthScreen: FunctionComponent<Props> = (props: Props) => {
       useNativeDriver: true
     }).start();
   }
+  
+  function closeForm(): void {
+    Animated.spring(translateY, {
+      toValue: 600,
+      useNativeDriver: true
+    }).start();
+  }
+
+  async function handleLoginPressed(): Promise<void> {
+    if (email && password) {
+      const token = await UserService.getInstance().login({email, password});
+      if (token && token.token) {
+        await AsyncStorage.setItem('token', token.token.toString());
+        setIsSignedIn(true);
+        closeForm();
+      }
+    }
+  }
 
   return (
       <KeyboardAvoidingView 
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         style={{flex: 1}}
       >
+        <View></View>
         <ImageBackground source={require('../../assets/Photo-1.jpg')} style={{ flex: 1 }}>
           <Image source={require('../../assets/Plannit-logo-blanc.png')} resizeMode='contain' style={styles.image}/>
           <View style={styles.buttonsContainer}>
@@ -70,7 +90,6 @@ const AuthScreen: FunctionComponent<Props> = (props: Props) => {
             </View>
             <View style={styles.buttonContainer}
             >
-
               <ButtonComponent
                 onPress={openForm}
                 style={{ backgroundColor: 'white' }}
@@ -84,19 +103,14 @@ const AuthScreen: FunctionComponent<Props> = (props: Props) => {
             <Text style={styles.formTitle}>Se connecter</Text>
             <View style={{marginBottom: 32}}>
               <Text style={styles.formLabel}>Email</Text>
-              <TextInput placeholder='Email' style={styles.formInput}/>
+              <TextInput value={email} placeholder='Email' style={styles.formInput}/>
             </View>
             <View style={{marginBottom: 32}}>
               <Text style={styles.formLabel}>Mot de passe</Text>
-              <TextInput placeholder='Mot de passe' secureTextEntry={true} style={styles.formInput}/>
+              <TextInput value={password} placeholder='Mot de passe' secureTextEntry={true} style={styles.formInput}/>
             </View>
-            <View style={{marginBottom: 32}}>
-              <Text style={styles.formLabel}>Date de naissance</Text>
-              <TextInput placeholder='Date de naissance' style={styles.formInput}/>
-            </View >
             <View style={{marginHorizontal: 50, marginBottom: 25}}>
               <ButtonComponent
-                onPress={openForm}
                 gradient={Theme.PRIMARY_GRADIENT}
                 text="Se connecter"
               />

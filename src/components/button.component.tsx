@@ -32,7 +32,7 @@ const ButtonComponent: FunctionComponent<Props> = (props: Props) => {
     <TouchableOpacity onPress={props.onPress} style={[styles.btn, props.style]}>
       <LinearGradient start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}} colors={props.gradient ? props.gradient : ['transparent']} style={{width: '100%'}}>
         <Text style={[styles.text, props.textStyle]}>
-          Se connecter
+          <Text>{props.text}</Text>
         </Text>
       </LinearGradient>
     </TouchableOpacity>

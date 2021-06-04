@@ -52,7 +52,7 @@ export default function App() {
 
   function getInitialRouteName(): keyof RootStackParamList | undefined {
     if (isLoggedIn) return 'Home';
-    return 'Auth';
+    return 'Home';
   }
   
   useEffect(() => {

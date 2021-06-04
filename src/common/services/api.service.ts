@@ -8,10 +8,8 @@ export interface ApiRequestOptions {
   body?: unknown;
   // headers of the request
   headers?: {[key: string]: string};
-  // specify if data return by the API is formatted in Json Api Format.
-  isJsonApiData?: boolean;
   // specify if the service request the rm api or another api.
-  isRequestingRmApi?: boolean;
+  isRequestingAPI?: boolean;
   // specify if the request should return content or not.
   isReturningContent?: boolean;
 }
@@ -28,8 +26,7 @@ export class ApiService {
   private static instance: ApiService;
   // Default options of the request method
   private defaultOptions: ApiRequestOptions = {
-    isJsonApiData: true,
-    isRequestingRmApi: true,
+    isRequestingAPI: true,
     isReturningContent: true,
   };
   /**
@@ -59,7 +56,7 @@ export class ApiService {
     // eslint-disable-next-line no-param-reassign
     options = {...this.defaultOptions, ...options};
 
-    const url = options.isRequestingRmApi
+    const url = options.isRequestingAPI
       ? `${process.env.EXPO_API_URL}${endpoint}`
       : endpoint;
 

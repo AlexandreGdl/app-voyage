@@ -1,7 +1,7 @@
 // React
 import React, { FunctionComponent, useState } from 'react';
 // Tools
-import { Dimensions, StyleSheet, View, LayoutChangeEvent } from 'react-native';
+import { Dimensions, StyleSheet, View, Text, LayoutChangeEvent } from 'react-native';
 import { Entypo } from '@expo/vector-icons'; 
 
 import { SimpleLineIcons } from '@expo/vector-icons'; 

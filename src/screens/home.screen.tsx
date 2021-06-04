@@ -2,7 +2,7 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 // Tools
-import { Text, Animated, KeyboardAvoidingView, Platform, Keyboard } from 'react-native';
+import { Text, Animated, ImageBackground, KeyboardAvoidingView, Platform, Keyboard } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import BottomCardComponent from '../components/bottom-card.component.tsx/bottom-card.component';
@@ -10,7 +10,8 @@ import BottomNavBarComponent from '../components/bottom-navbar/bottom-navbar.com
 import CreateVoyageComponent from '../components/create-voyage/create-voyage.component';
 import { RootStackParamList } from '../root-stack-parameters-list';
 import { styles } from '../style/home.style';
-
+import CardComponent from '../components/voyage-card/voyage-card.component';
+import Theme from '../style/theme';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Home'>
@@ -51,17 +52,22 @@ const HomeScreen: FunctionComponent<Props> = (props: Props) => {
       style={{flex: 1}}
     >
       <SafeAreaView style={{ flex: 1 }}>
+        <ImageBackground source={require('../../assets/Photo-2.jpg')} style={styles.imgBg}>
 
-        <BottomNavBarComponent navigation={props.navigation} onBtnPressed={openCard} />
-        
-        {cardOpen && <Animated.View onTouchEnd={closeCard} style={[styles.darkBackground, { opacity: fadeAnim }]}>
-          </Animated.View>}
-        <BottomCardComponent open={cardOpen}>
-          <CreateVoyageComponent onVoyageCreated={closeCard} />
-        </BottomCardComponent>
+        </ImageBackground>
+        <Text>Vos voyages</Text>
+        <CardComponent titleVoyage='Lisbonne, Portugal' nbTraveller={4} nbDay={7} date={new Date()}/>
+        <CardComponent titleVoyage='Lisbonne, Portugal' nbTraveller={4} nbDay={7} date={new Date()}/>
 
       </SafeAreaView>
-    </KeyboardAvoidingView>
+      <BottomNavBarComponent navigation={props.navigation} onBtnPressed={openCard} />
+        
+      {cardOpen && <Animated.View onTouchEnd={closeCard} style={[styles.darkBackground, { opacity: fadeAnim }]}>
+        </Animated.View>}
+      <BottomCardComponent open={cardOpen}>
+        <CreateVoyageComponent onVoyageCreated={closeCard} />
+      </BottomCardComponent>
+     </KeyboardAvoidingView>
   );
 }
 

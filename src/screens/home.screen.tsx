@@ -57,7 +57,7 @@ const HomeScreen: FunctionComponent<Props> = (props: Props) => {
         {cardOpen && <Animated.View onTouchEnd={closeCard} style={[styles.darkBackground, { opacity: fadeAnim }]}>
           </Animated.View>}
         <BottomCardComponent open={cardOpen}>
-          <CreateVoyageComponent />
+          <CreateVoyageComponent onVoyageCreated={closeCard} />
         </BottomCardComponent>
 
       </SafeAreaView>

@@ -1,7 +1,7 @@
 // React
 import React, { FunctionComponent, ReactNode, useEffect, useRef, useState } from 'react';
 // Tools
-import { Dimensions, StyleSheet, Animated, LayoutChangeEvent } from 'react-native'
+import { Dimensions, StyleSheet, Animated, LayoutChangeEvent, View } from 'react-native'
 
 type Props = {
   children?: ReactNode;
@@ -26,6 +26,13 @@ const BottomCardComponent: FunctionComponent<Props> = (props: Props) => {
       alignItems: 'center',
       borderTopLeftRadius: 20,
       borderTopRightRadius: 20,
+    },
+    draggable: { 
+      marginVertical: 10, 
+      width: '35%', 
+      height: 4, 
+      borderRadius: 20, 
+      backgroundColor: 'grey' 
     }
   });
 
@@ -65,6 +72,7 @@ const BottomCardComponent: FunctionComponent<Props> = (props: Props) => {
 
   return (
     <Animated.View onLayout={onLayout} style={[styles.container, { transform: [{ translateY }]}]}>
+      <View style={styles.draggable} />
       {props.children}
     </Animated.View>
   );

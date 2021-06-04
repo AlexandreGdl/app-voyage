@@ -11,7 +11,6 @@ import MapScreen from './src/screens/map.screen';
 
 const StackNavigator = createStackNavigator<RootStackParamList>();
 
-
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [loaded] = useFonts({
@@ -53,7 +52,7 @@ export default function App() {
 
   function getInitialRouteName(): keyof RootStackParamList | undefined {
     if (isLoggedIn) return 'Home';
-    return 'Home';
+    return 'Auth';
   }
   
   useEffect(() => {

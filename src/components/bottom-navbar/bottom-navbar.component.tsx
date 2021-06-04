@@ -1,8 +1,7 @@
 // React
 import React, { FunctionComponent, useState } from 'react';
 // Tools
-import { Dimensions, StyleSheet, View, Text, LayoutChangeEvent } from 'react-native';
-import { AntDesign } from '@expo/vector-icons'; 
+import { Dimensions, StyleSheet, View, LayoutChangeEvent } from 'react-native';
 import { Entypo } from '@expo/vector-icons'; 
 
 import { SimpleLineIcons } from '@expo/vector-icons'; 
@@ -10,12 +9,11 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../root-stack-parameters-list';
 import Theme from '../../style/theme';
-import { LinearGradient } from 'expo-linear-gradient';
 import ButtonComponent from '../button.component';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, keyof RootStackParamList>;
-  onBtnPressed: () => void;
+  onBtnPressed?: () => void;
 }
 
 const styles = StyleSheet.create({

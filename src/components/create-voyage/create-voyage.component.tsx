@@ -1,12 +1,16 @@
 import React, { FunctionComponent, useState } from 'react';
-import { TextInput, View, Text, StyleSheet, Dimensions } from 'react-native';
-import { formStyles } from '../../style/form.style';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import Emoji from 'react-native-emoji';
+import { CitiesService } from '../../city/cities.service';
+import { City } from '../../city/interface/city.interface';
 import Theme from '../../style/theme';
+import { CreateVoyageDto } from '../../voyage/dto/create-voyage.dto';
+import { VoyageService } from '../../voyage/service/voyage.service';
 import ButtonComponent from '../button.component';
 import InputLabelComponent from '../form/input-label.component';
 
 type Props = {
-
+  onVoyageCreated: () => void;
 }
 
 const styles = StyleSheet.create({
@@ -28,7 +32,8 @@ const styles = StyleSheet.create({
   label: { 
     marginHorizontal: 0, 
     fontWeight: '500', 
-    color: 'black' 
+    color: 'black',
+    marginBottom: 15
   },
   doubleInputContainer: { 
     alignSelf: 'flex-start', 
@@ -48,23 +53,61 @@ const styles = StyleSheet.create({
     width: '50%', 
     alignSelf: 'center', 
     marginTop: 40 
+  },
+  country: {
+    fontWeight: '400', 
+    fontSize: 18, 
+    marginBottom: 8, 
+    marginLeft: 15 
   }
 });
 
 const CreateVoyageComponent: FunctionComponent<Props> = (props: Props) => {
 
+  const [city, setCity] = useState<City | undefined>(undefined);
   const [destination, setDestination] = useState<string | undefined>(undefined);
-  const [dateDeFin, setDateDeFin] = useState<Date>(new Date());
-  const [dateDeDepart, setDateDeDepart] = useState<Date>(new Date());
+  const [endDate, setEndDate] = useState<Date>(new Date());
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [notFound, setNotFound] = useState<boolean>(false);
 
-  function createVoyage(): void {
-    // creation voyage
+  async function findGoodCity(): Promise<void> {
+    if (destination) {
+      const cityFromAPI = await CitiesService.getInstance().getCity(destination);
+      if (cityFromAPI) {
+        setDestination(cityFromAPI?.name);
+        setCity(cityFromAPI);
+        setNotFound(false);
+      } else {
+        setNotFound(true)
+      }
+    }
+  }
+
+  async function createVoyage(): Promise<void> {
+    console.log('toto')
+
+    if (destination && city && !notFound) {
+      const newVoyage: CreateVoyageDto = {
+        name: `${destination}, ${city.country}`,
+        defaultName: `${destination}, ${city.country}`,
+        cityName: `${destination}, ${city.country}`,
+        location: city.position,
+        startDate,
+        endDate
+      }
+
+      const myVoyage = await VoyageService.getInstance().createVoyage(newVoyage);
+      if (myVoyage) {
+        props.onVoyageCreated();
+      }
+    }
   }
 
   return (
     <View style={styles.container}>
       <Text style={styles.cardTitle}>Créer un nouveau voyage</Text>
-      <InputLabelComponent 
+      <View style={{ flexDirection: 'row', alignItems: 'flex-end', maxWidth: '100%' }}>
+        <InputLabelComponent 
           label='Destination'
           placeholder='Nom de la ville'
           labelStyle={styles.label}
@@ -73,13 +116,20 @@ const CreateVoyageComponent: FunctionComponent<Props> = (props: Props) => {
           containerStyle={styles.inputContainer}
           onChangeText={(text: string): void => setDestination(text)}
         />
+        {city && !notFound && <Text style={styles.country}>
+          Pays : {city.country} <Emoji name={`flag-${city.country.toLowerCase()}`} />
+        </Text>}
+        {notFound && <Text style={[styles.country, { color: 'red', maxWidth: 200 }]}>
+          Ville non trouvé, vérifiez l'orthographe
+        </Text>}
+      </View>
       <View style={styles.doubleInputContainer}>
         <InputLabelComponent 
           label='Date de départ'
           placeholder='date de départ'
           labelStyle={styles.label}
           inputStyle={[styles.reset, {maxWidth: 100 }]}
-          value={dateDeFin.toDateString()}
+          value={startDate.toDateString()}
           containerStyle={{ marginLeft: 0 }}
         />
 
@@ -88,12 +138,12 @@ const CreateVoyageComponent: FunctionComponent<Props> = (props: Props) => {
           placeholder='date de fin'
           labelStyle={styles.label}
           inputStyle={[styles.reset, {maxWidth: 100 }]}
-          value={dateDeFin.toDateString()}
+          value={endDate.toDateString()}
         />
       </View>
       <ButtonComponent 
-        text="Créer le voyage"
-        onPress={createVoyage}
+        text={city && city.name === destination ? 'Créer le voyage' : 'Trouver la ville'}
+        onPress={city && city.name === destination ? createVoyage : findGoodCity}
         gradient={Theme.PRIMARY_GRADIENT}
         style={styles.btnStyle}
       />

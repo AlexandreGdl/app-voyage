@@ -1,12 +1,17 @@
 // React
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 // Tools
-import { Dimensions, StyleSheet, View, Text } from 'react-native';
-import { Fontisto } from '@expo/vector-icons';
+import { Dimensions, StyleSheet, View, Text, LayoutChangeEvent } from 'react-native';
+import { AntDesign } from '@expo/vector-icons'; 
+import { Entypo } from '@expo/vector-icons'; 
+
+import { SimpleLineIcons } from '@expo/vector-icons'; 
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../root-stack-parameters-list';
-
+import Theme from '../../style/theme';
+import { LinearGradient } from 'expo-linear-gradient';
+import ButtonComponent from '../button.component';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, keyof RootStackParamList>;
@@ -19,22 +24,43 @@ const styles = StyleSheet.create({
     left: 0,
     width: Dimensions.get('screen').width,
     backgroundColor: 'white',
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    paddingVertical: 25,
     shadowColor: "#000", 
     shadowOffset: {
       width: 0,
       height: 2,
     },
-    paddingVertical: 25,
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+  },
+  
+  menu: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
+  },
+
+  buttonPlus: {
+    position: 'absolute',
+    alignItems: 'center', 
+    transform: [{translateY: -50}],
+    shadowColor: "#000", 
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   }
 });
 
 const BottomNavBarComponent: FunctionComponent<Props> = (props: Props) => {
+
+  const [buttonWidth, setButtonWidth] = useState(50);
 
   function handleGoToMap(): void {
     props.navigation.replace('Map');
@@ -44,15 +70,35 @@ const BottomNavBarComponent: FunctionComponent<Props> = (props: Props) => {
     props.navigation.replace('Home');
   }
 
+  function getButtonWidth(event: LayoutChangeEvent): void {
+    const { layout } = event.nativeEvent;
+    setButtonWidth(layout.width);
+  }
+
   return (
-      <View style={styles.container}>
-        <TouchableOpacity style={{ marginBottom: 7 }} onPress={handleGoToHome}>
-          <Fontisto name="home" size={24} color="black" />
+    <View style={styles.container}>
+      <View style={styles.menu}>
+        <TouchableOpacity onPress={handleGoToHome}>
+          <SimpleLineIcons name="home" size={24} color="grey" /> 
         </TouchableOpacity>
-        <TouchableOpacity style={{ marginBottom: 7 }} onPress={handleGoToMap}>
-          <Fontisto name="map-marker-alt" size={24} color="black" />
+        <TouchableOpacity>
+          <SimpleLineIcons name="fire" size={24} color="grey" />
+        </TouchableOpacity>
+        <TouchableOpacity>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleGoToMap}>
+          <SimpleLineIcons name="map" size={24} color="grey" />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <SimpleLineIcons name="user" size={24} color="grey" />
         </TouchableOpacity>
       </View>
+      <View onLayout={getButtonWidth} style={[styles.buttonPlus, {left: (Dimensions.get('screen').width/2) - (buttonWidth/2)}]}>
+        <ButtonComponent gradient={Theme.PRIMARY_GRADIENT} childrenStyle={{padding: 15 }}>
+          <Entypo name="plus" size={36} color="white" />
+        </ButtonComponent>
+      </View>
+    </View>
   );
 }
 

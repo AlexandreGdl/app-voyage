@@ -19,7 +19,7 @@ type Props = {
 const HomeScreen: FunctionComponent<Props> = (props: Props) => {
 
   const fadeAnim = useRef(new Animated.Value(0)).current;
-  const [cardOpen, setCardOpen] = useState<boolean>(true);
+  const [cardOpen, setCardOpen] = useState<boolean>(false);
 
 
   function closeCard(): void {
@@ -45,30 +45,21 @@ const HomeScreen: FunctionComponent<Props> = (props: Props) => {
     ).start();
   }
 
-  useEffect(() => {
-    if (cardOpen) {
-      openCard();
-    } else {
-      closeCard();
-    }
-  }, [openCard]);
-
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       style={{flex: 1}}
     >
       <SafeAreaView style={{ flex: 1 }}>
-        <Text>HOME</Text>
-        <BottomNavBarComponent navigation={props.navigation} />
-        <TouchableOpacity onPress={(): void => setCardOpen(!cardOpen)}>
-          <Text>test</Text>
-        </TouchableOpacity>
+
+        <BottomNavBarComponent navigation={props.navigation} onBtnPressed={openCard} />
+        
         {cardOpen && <Animated.View onTouchEnd={closeCard} style={[styles.darkBackground, { opacity: fadeAnim }]}>
           </Animated.View>}
         <BottomCardComponent open={cardOpen}>
           <CreateVoyageComponent />
         </BottomCardComponent>
+
       </SafeAreaView>
     </KeyboardAvoidingView>
   );

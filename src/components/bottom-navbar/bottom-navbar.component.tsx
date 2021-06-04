@@ -15,6 +15,7 @@ import ButtonComponent from '../button.component';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, keyof RootStackParamList>;
+  onBtnPressed: () => void;
 }
 
 const styles = StyleSheet.create({
@@ -94,7 +95,7 @@ const BottomNavBarComponent: FunctionComponent<Props> = (props: Props) => {
         </TouchableOpacity>
       </View>
       <View onLayout={getButtonWidth} style={[styles.buttonPlus, {left: (Dimensions.get('screen').width/2) - (buttonWidth/2)}]}>
-        <ButtonComponent gradient={Theme.PRIMARY_GRADIENT} childrenStyle={{padding: 15 }}>
+        <ButtonComponent onPress={props.onBtnPressed} gradient={Theme.PRIMARY_GRADIENT} childrenStyle={{padding: 15 }}>
           <Entypo name="plus" size={36} color="white" />
         </ButtonComponent>
       </View>

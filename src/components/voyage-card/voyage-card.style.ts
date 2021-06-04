@@ -1,9 +1,13 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
+    container : {
+      flexDirection: 'row'
+    },
     card:  {
-      width: 200,
-      height: 200,
+      width: Dimensions.get('screen').width/2,
+      height: Dimensions.get('screen').width/2,
+      marginRight: 24,
       borderRadius: 20,
       shadowColor: "#000", 
       shadowOffset: {
@@ -41,7 +45,7 @@ export const styles = StyleSheet.create({
   
     dateText : {
       fontFamily: 'Montserrat',
-      fontSize: 11
+      fontSize: 10
     },
   
     text : {
@@ -54,7 +58,8 @@ export const styles = StyleSheet.create({
       paddingHorizontal: 15,
       paddingBottom: 5,
       fontFamily: 'Montserrat-Bold',
-      color: 'white'
+      color: 'white',
+      fontSize: 12
     },
   
     filters : {
@@ -62,16 +67,18 @@ export const styles = StyleSheet.create({
       justifyContent: 'space-between',
       alignItems: 'center',
       paddingHorizontal: 15,
-      paddingBottom: 10
+      paddingBottom: 10,
     },
   
     travellerFilter : {
       color: 'white',
       fontFamily: 'Montserrat',
+      fontSize: 11
     },
   
     dayFilter : {
       color: 'white',
       fontFamily: 'Montserrat',
+      fontSize: 11
     }
   });

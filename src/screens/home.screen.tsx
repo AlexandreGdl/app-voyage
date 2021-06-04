@@ -2,7 +2,7 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 // Tools
-import { Text, Animated, ImageBackground, KeyboardAvoidingView, Platform, Keyboard } from 'react-native';
+import { Text, Animated, View, ImageBackground, KeyboardAvoidingView, Platform, Keyboard, Image, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import BottomCardComponent from '../components/bottom-card.component.tsx/bottom-card.component';
@@ -10,6 +10,7 @@ import BottomNavBarComponent from '../components/bottom-navbar/bottom-navbar.com
 import CreateVoyageComponent from '../components/create-voyage/create-voyage.component';
 import { RootStackParamList } from '../root-stack-parameters-list';
 import { styles } from '../style/home.style';
+import { ScrollView } from 'react-native-gesture-handler';
 import CardComponent from '../components/voyage-card/voyage-card.component';
 import Theme from '../style/theme';
 
@@ -51,15 +52,27 @@ const HomeScreen: FunctionComponent<Props> = (props: Props) => {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       style={{flex: 1}}
     >
-      <SafeAreaView style={{ flex: 1 }}>
-        <ImageBackground source={require('../../assets/Photo-2.jpg')} style={styles.imgBg}>
+      <View style={{ flex: 1 }}>
+        <ScrollView>
+          <ImageBackground source={require('../../assets/Photo-3.jpg')} imageStyle={styles.imgBorderRadius} style={styles.imgBg}>
+            <Image source={require('../../assets/Plannit-logo-blanc.png')} resizeMode='contain' style={styles.logo}/>
+            <Text style={styles.subTitle}>Tout va plus vite !</Text>
+          </ImageBackground>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.textVoyage}>Vos voyages</Text>
+            <ScrollView showsHorizontalScrollIndicator={false} contentContainerStyle={styles.cardContainer} horizontal>
+              <CardComponent img='https://images.pexels.com/photos/38238/maldives-ile-beach-sun-38238.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' width={Dimensions.get('screen').width/2} height={Dimensions.get('screen').width/2} titleVoyage='Lisbonne, Portugal' nbTraveller={4} nbDay={7} date={new Date()}/>
+              <CardComponent img='https://images.pexels.com/photos/33545/sunrise-phu-quoc-island-ocean.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'  width={Dimensions.get('screen').width/2} height={Dimensions.get('screen').width/2} titleVoyage='Lisbonne, Portugal' nbTraveller={4} nbDay={7} date={new Date()}/>
+            </ScrollView>
+            <Text style={styles.textVoyage}>Pour vous</Text>
+            <ScrollView showsHorizontalScrollIndicator={false} contentContainerStyle={styles.cardContainer} horizontal>
+              <CardComponent img='https://images.pexels.com/photos/1078983/pexels-photo-1078983.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' width={Dimensions.get('screen').width/1.3} height={Dimensions.get('screen').width/1.3} titleVoyage='Lisbonne, Portugal' nbTraveller={4} nbDay={7} date={new Date()}/>
+              <CardComponent img='https://images.pexels.com/photos/221457/pexels-photo-221457.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' width={Dimensions.get('screen').width/1.3} height={Dimensions.get('screen').width/1.3} titleVoyage='Lisbonne, Portugal' nbTraveller={4} nbDay={7} date={new Date()}/>
+            </ScrollView>
 
-        </ImageBackground>
-        <Text>Vos voyages</Text>
-        <CardComponent titleVoyage='Lisbonne, Portugal' nbTraveller={4} nbDay={7} date={new Date()}/>
-        <CardComponent titleVoyage='Lisbonne, Portugal' nbTraveller={4} nbDay={7} date={new Date()}/>
-
-      </SafeAreaView>
+          </View>
+        </ScrollView>
+      </View>
       <BottomNavBarComponent navigation={props.navigation} onBtnPressed={openCard} />
         
       {cardOpen && <Animated.View onTouchEnd={closeCard} style={[styles.darkBackground, { opacity: fadeAnim }]}>
@@ -67,7 +80,7 @@ const HomeScreen: FunctionComponent<Props> = (props: Props) => {
       <BottomCardComponent open={cardOpen}>
         <CreateVoyageComponent onVoyageCreated={closeCard} />
       </BottomCardComponent>
-     </KeyboardAvoidingView>
+    </KeyboardAvoidingView>
   );
 }
 

@@ -23,6 +23,9 @@ type Props = {
   nbTraveller: number;
   nbDay: number;
   date: Date;
+  width: number;
+  height: number;
+  img: string;
 }
 
 const CardComponent: FunctionComponent<Props> = (props: Props) => {
@@ -31,7 +34,7 @@ const CardComponent: FunctionComponent<Props> = (props: Props) => {
  
   return (
     <TouchableOpacity>
-      <ImageBackground source={require('../../../assets/Photo-4.jpg')} imageStyle={styles.image} style={styles.card}>
+      <ImageBackground source={{uri: props.img}} imageStyle={[styles.image, {width: props.width, height: props.height}]} style={[styles.card, {width: props.width, height: props.height}]}>
         <View style={styles.date}>
           <Text style={styles.dateText}>{moment(props.date).format('DD')}</Text>
           <Text style={styles.dateText}>{ monthDate[0].toUpperCase() + monthDate.slice(1) }</Text>

@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 // Styles
 import { styles } from '../style/auth.style';
+import { formStyles } from '../style/form.style';
 import ButtonComponent from '../components/button.component';
 import Theme from '../style/theme';
 import { UserService } from '../user/service/user.service';
@@ -142,23 +143,23 @@ const AuthScreen: FunctionComponent<Props> = (props: Props) => {
           </View>
           }
           
-          <Animated.View {...panResponder.panHandlers} style={[styles.formContainer, {transform: [{translateY}]}]}>
-            <Text style={styles.formTitle}>{isSignIn ? "S'inscrire" : "Se connecter"}</Text>
+          <Animated.View {...panResponder.panHandlers} style={[ formStyles.formContainer, {transform: [{translateY}]}]}>
+            <Text style={ formStyles.formTitle}>{isSignIn ? "S'inscrire" : "Se connecter"}</Text>
             <View style={{marginBottom: 32}}>
-              <Text style={[styles.formLabel, { color: error.email ? 'red' : 'grey' }]}>Email</Text>
-              <TextInput autoCorrect={false} autoCompleteType="off" keyboardType="email-address" onBlur={checkEmail} onChangeText={(t): void => setEmail(t)} value={email} placeholder='Email' style={[styles.formInput, { borderColor: error.email ? 'red' : 'black' }]}/>
+              <Text style={[ formStyles.formLabel, { color: error.email ? 'red' : 'grey' }]}>Email</Text>
+              <TextInput autoCorrect={false} autoCompleteType="off" keyboardType="email-address" onBlur={checkEmail} onChangeText={(t): void => setEmail(t)} value={email} placeholder='Email' style={[ formStyles.formInput, { borderColor: error.email ? 'red' : 'black' }]}/>
             </View>
             {isSignIn && <View style={{marginBottom: 32}}>
-              <Text style={styles.formLabel}>Nom d'utilisateur</Text>
-              <TextInput autoCorrect={false} autoCompleteType="off" value={username} onChangeText={(t): void => setUsername(t)} placeholder='Username' style={styles.formInput}/>
+              <Text style={ formStyles.formLabel}>Nom d'utilisateur</Text>
+              <TextInput autoCorrect={false} autoCompleteType="off" value={username} onChangeText={(t): void => setUsername(t)} placeholder='Username' style={ formStyles.formInput}/>
             </View>}
             <View style={{marginBottom: 32}}>
-              <Text style={styles.formLabel}>Mot de passe</Text>
-              <TextInput autoCorrect={false} autoCompleteType="off" value={password} onChangeText={(t): void => setPassword(t)} placeholder='Mot de passe' secureTextEntry={true} style={styles.formInput}/>
+              <Text style={ formStyles.formLabel}>Mot de passe</Text>
+              <TextInput autoCorrect={false} autoCompleteType="off" value={password} onChangeText={(t): void => setPassword(t)} placeholder='Mot de passe' secureTextEntry={true} style={ formStyles.formInput}/>
             </View>
             {isSignIn && <View style={{marginBottom: 32}}>
-              <Text style={[styles.formLabel, { color: error.phoneNumber ? 'red' : 'grey' }]}>Numéro de téléphone</Text>
-              <TextInput autoCorrect={false} autoCompleteType="off" value={phoneNumber} onBlur={checkPhoneNumber} onChangeText={(t): void => setPhoneNumber(t)} placeholder='Numéro de téléphone' style={[styles.formInput, { borderColor: error.phoneNumber ? 'red' : 'black' }]}/>
+              <Text style={[ formStyles.formLabel, { color: error.phoneNumber ? 'red' : 'grey' }]}>Numéro de téléphone</Text>
+              <TextInput autoCorrect={false} autoCompleteType="off" value={phoneNumber} onBlur={checkPhoneNumber} onChangeText={(t): void => setPhoneNumber(t)} placeholder='Numéro de téléphone' style={[ formStyles.formInput, { borderColor: error.phoneNumber ? 'red' : 'black' }]}/>
             </View>}
             <View style={{marginHorizontal: 50, marginBottom: 25}}>
               <ButtonComponent

@@ -1,7 +1,7 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { FunctionComponent, ReactNode } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Text, StyleSheet, ViewStyle, TextStyle, View } from 'react-native'
+import { Text, StyleSheet, ViewStyle, TextStyle, View } from 'react-native';
 
 type Props = {
   gradient?: string[];

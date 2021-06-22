@@ -9,6 +9,7 @@ import BottomNavBarComponent from '../components/bottom-navbar/bottom-navbar.com
 import { RootStackParamList } from '../root-stack-parameters-list';
 // Styles
 import { styles } from '../style/map.style';
+import TypesIcon, { IconTypeEnum } from '../components/types-icon/types-icon.component';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Map'>
@@ -41,7 +42,10 @@ const MapScreen: FunctionComponent<Props> = (props: Props) => {
         {markers.map((marker, index: number) => <Marker
           coordinate={marker}
           key={index}
-        />)}
+        >
+          <Text>Toto</Text>
+          <TypesIcon name={IconTypeEnum.RESTAURANT} />
+        </Marker>)}
       </MapView>
 
       <BottomNavBarComponent navigation={props.navigation} />

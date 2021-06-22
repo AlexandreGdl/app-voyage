@@ -7,6 +7,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/screens/home.screen';
 import { RootStackParamList } from './src/root-stack-parameters-list';
 import MapScreen from './src/screens/map.screen';
+import VoyageScreen from './src/screens/voyage.screen';
+import WidgetScreen from './src/screens/widgets.screen';
 
 
 const StackNavigator = createStackNavigator<RootStackParamList>();
@@ -73,6 +75,8 @@ export default function App() {
         />
         <StackNavigator.Screen name="Home" options={{ headerShown: false, animationEnabled: false }} component={HomeScreen} />
         <StackNavigator.Screen name="Map" options={{ headerShown: false, animationEnabled: false }} component={MapScreen} />
+        <StackNavigator.Screen name="Voyage" options={{ headerShown: false }} component={VoyageScreen} />
+        <StackNavigator.Screen name="Widgets" options={{ headerShown: false }} component={WidgetScreen} />
       </StackNavigator.Navigator>
     </NavigationContainer>
   );

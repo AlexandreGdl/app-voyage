@@ -2,7 +2,7 @@ import { Dimensions, StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
     container : {
-      flexDirection: 'row'
+      flexDirection: 'row',
     },
     card:  {
       width: Dimensions.get('screen').width/2,

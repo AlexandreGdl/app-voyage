@@ -26,6 +26,7 @@ type Props = {
   width: number;
   height: number;
   img: string;
+  onPress: () => void;
 }
 
 const CardComponent: FunctionComponent<Props> = (props: Props) => {
@@ -33,7 +34,7 @@ const CardComponent: FunctionComponent<Props> = (props: Props) => {
   const monthDate = moment(props.date).format('MMM');
  
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={props.onPress}>
       <ImageBackground source={{uri: props.img}} imageStyle={[styles.image, {width: props.width, height: props.height}]} style={[styles.card, {width: props.width, height: props.height}]}>
         <View style={styles.date}>
           <Text style={styles.dateText}>{moment(props.date).format('DD')}</Text>

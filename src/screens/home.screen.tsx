@@ -12,7 +12,6 @@ import { styles } from '../style/home.style';
 import { ScrollView } from 'react-native-gesture-handler';
 import CardComponent from '../components/voyage-card/voyage-card.component';
 import Theme from '../style/theme';
-import Toto from '../components/bottom-card/bottom-card.component';
 import BottomCardComponent from '../components/bottom-card/bottom-card.component';
 
 type Props = {
@@ -53,11 +52,8 @@ const HomeScreen: FunctionComponent<Props> = (props: Props) => {
   }
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      style={{flex: 1}}
-    >
-      <View style={{ flex: 1 }}>
+    <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1 }}>
         <ScrollView>
           <ImageBackground source={require('../../assets/Photo-3.jpg')} imageStyle={styles.imgBorderRadius} style={styles.imgBg}>
             <Image source={require('../../assets/Plannit-logo-blanc.png')} resizeMode='contain' style={styles.logo}/>
@@ -76,14 +72,14 @@ const HomeScreen: FunctionComponent<Props> = (props: Props) => {
             </ScrollView>
           </View>
         </ScrollView>
-      </View>
-      <BottomNavBarComponent navigation={props.navigation} onBtnPressed={openCard} />
-        
-      {cardOpen && <Animated.View onTouchEnd={closeCard} style={[styles.darkBackground, { opacity: fadeAnim }]}>
-        </Animated.View>}
+        <BottomNavBarComponent navigation={props.navigation} onBtnPressed={openCard} />
+          
+        {cardOpen && <Animated.View onTouchEnd={closeCard} style={[styles.darkBackground, { opacity: fadeAnim }]}>
+          </Animated.View>}
         <BottomCardComponent open={cardOpen}>
           <CreateVoyageComponent onVoyageCreated={closeCard} />
         </BottomCardComponent>
+      </SafeAreaView>
     </KeyboardAvoidingView>
   );
 }

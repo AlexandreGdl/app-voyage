@@ -1,6 +1,7 @@
 // React
 import { AntDesign, Entypo, Ionicons, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { inject, observer } from 'mobx-react';
 import React, { FunctionComponent } from 'react';
 // Tools
 import { Text, View, Image, ScrollView } from 'react-native';
@@ -10,53 +11,78 @@ import { RootStackParamList } from '../root-stack-parameters-list';
 import Theme from '../style/theme';
 // Styles
 import { styles } from '../style/widgets.style';
+import { WidgetStore } from '../widget/store/widget.store';
 
 type Props = {
-  navigation: StackNavigationProp<RootStackParamList, 'Widgets'>
+  navigation: StackNavigationProp<RootStackParamList, 'Widgets'>;
+  widgetStore: WidgetStore;
+}
+
+export enum WidgetType {
+  AGENDA = 'agenda',
+  WALLET = 'wallet',
+  ACCOUNT_CASH = 'account-cash',
+  COUNTDOWN = 'countdown',
+  MAP = 'map',
+  NOTE = 'note',
 }
 
 type WidgetUI = {
   name: string;
   text: string;
   icon: JSX.Element;
+  type: WidgetType;
 }
 
-const WidgetScreen: FunctionComponent<Props> = (props: Props) => {
+const WidgetScreen: FunctionComponent<Props> = inject((stores: Record<string, unknown>) => ({
+  widgetStore: stores.widgetStore as WidgetStore,
+}))(observer((props: Props) => {
  
   const defaultWidgets: Array<WidgetUI> = [
     {
       name: 'Agenda',
+      type: WidgetType.AGENDA,
       text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non neque dolor. ',
       icon: <AntDesign name='calendar' size={42}/>
     },
     {
       name: 'Wallet',
+      type: WidgetType.WALLET,
       text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non neque dolor. ',
       icon: <Ionicons name='wallet-outline' size={42}/>
     },
     {
       name: 'Ardoise',
+      type: WidgetType.ACCOUNT_CASH,
       text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non neque dolor. ',
       icon: <MaterialCommunityIcons name="account-cash-outline" size={42}/>
     },
     {
       name: 'Décompte',
+      type: WidgetType.COUNTDOWN,
       text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non neque dolor. ',
       icon: <Ionicons name="ios-hourglass-outline" size={42} />
     },
     {
       name: 'Notes partagées',
+      type: WidgetType.NOTE,
       text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non neque dolor. ',
       icon: <Ionicons name="ios-document-text-outline" size={42}/>
     },
     {
       name: 'Map personnalisée',
+      type: WidgetType.MAP,
       text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non neque dolor. ',
       icon: <Feather name='map' size={42}/>
     },
   ];
+
   function goBack(): void {
     props.navigation.goBack();
+  }
+
+  function handleWidgetPressed(type: WidgetType): void {
+    console.log(props.widgetStore.widgets.filter((widget) => widget.name === type)[0]);
   }
   
   return (
@@ -72,7 +98,7 @@ const WidgetScreen: FunctionComponent<Props> = (props: Props) => {
             <View style={styles.widgetView}>
                 <Text style={styles.explication}>Sélectionnez les fonctionnalités pour votre voyage</Text>
                 { defaultWidgets.map(defaultWidget =>
-                  <TouchableOpacity key={defaultWidget.name} style={styles.widgetCard}>
+                  <TouchableOpacity onPress={(): void => handleWidgetPressed(defaultWidget.type) } key={defaultWidget.name} style={styles.widgetCard}>
                     <FeatureCard style={styles.widgetCardImage}>
                         {defaultWidget.icon}
                     </FeatureCard>
@@ -89,6 +115,6 @@ const WidgetScreen: FunctionComponent<Props> = (props: Props) => {
         </ScrollView>
     </View>
   );
-}
+}));
 
 export default WidgetScreen;

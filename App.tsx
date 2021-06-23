@@ -11,6 +11,7 @@ import MapScreen from './src/screens/map.screen';
 import { PlaceStore } from './src/place/store/place.store';
 import VoyageScreen from './src/screens/voyage.screen';
 import WidgetsScreen from './src/screens/widgets.screen';
+import { WidgetStore } from './src/widget/store/widget.store';
 
 
 const StackNavigator = createStackNavigator<RootStackParamList>();
@@ -18,6 +19,7 @@ const StackNavigator = createStackNavigator<RootStackParamList>();
 export default function App() {
 
   const [placeStore] = useState<PlaceStore>(new PlaceStore());
+  const [widgetStore] = useState<WidgetStore>(new WidgetStore());
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [loaded] = useFonts({
     // Montserrat Font
@@ -61,10 +63,15 @@ export default function App() {
     if (isLoggedIn) return 'Home';
     return 'Auth';
   }
+
+  async function getWidgets(): Promise<void> {
+    await widgetStore.fetchWidgets();
+  }
   
   useEffect(() => {
     (async () => {
       await getUser();
+      if (isLoggedIn) await getWidgets();
     })();
   }, []);
   
@@ -73,6 +80,7 @@ export default function App() {
   return (
     <Provider
       placeStore={ placeStore }
+      widgetStore={ widgetStore }
     >
       <NavigationContainer>
         <StackNavigator.Navigator initialRouteName={getInitialRouteName()}>

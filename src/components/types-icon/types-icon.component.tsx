@@ -8,6 +8,7 @@ export enum IconTypeEnum {
 
 type Props = {
   name: IconTypeEnum;
+  iconName: keyof typeof Ionicons.glyphMap;
 }
 
 const TypesIcon: FunctionComponent<Props> = (props: Props) => {
@@ -15,7 +16,7 @@ const TypesIcon: FunctionComponent<Props> = (props: Props) => {
       case IconTypeEnum.RESTAURANT: 
         return (
           <View style={{ borderRadius: 50, borderWidth: 1, borderColor: 'red', padding: 10 }}>
-            <Ionicons color="red" size={25} name="cart-outline" />
+            <Ionicons color="red" size={25} name={props.iconName} />
           </View>
         );
       default:

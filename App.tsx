@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import AuthScreen from './src/screens/auth.screen';
 import { useFonts } from 'expo-font';
+import { Provider } from 'mobx-react';
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/screens/home.screen';
 import { RootStackParamList } from './src/root-stack-parameters-list';
 import MapScreen from './src/screens/map.screen';
+import { PlaceStore } from './src/place/store/place.store';
 
 
 const StackNavigator = createStackNavigator<RootStackParamList>();
 
 export default function App() {
+
+  const [placeStore] = useState<PlaceStore>(new PlaceStore());
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [loaded] = useFonts({
     // Montserrat Font
@@ -47,12 +51,13 @@ export default function App() {
 
   async function getUser(): Promise<void> {
     const token = await AsyncStorage.getItem('token');
+
     if (token) setIsLoggedIn(true);
   }
 
   function getInitialRouteName(): keyof RootStackParamList | undefined {
     if (isLoggedIn) return 'Home';
-    return 'Home';
+    return 'Auth';
   }
   
   useEffect(() => {
@@ -64,16 +69,20 @@ export default function App() {
   if (!loaded ) return null;
   
   return (
-    <NavigationContainer>
-      <StackNavigator.Navigator initialRouteName={getInitialRouteName()}>
-        <StackNavigator.Screen
-          name="Auth"
-          component={AuthScreen}
-          options={{ headerShown: false }}
-        />
-        <StackNavigator.Screen name="Home" options={{ headerShown: false, animationEnabled: false }} component={HomeScreen} />
-        <StackNavigator.Screen name="Map" options={{ headerShown: false, animationEnabled: false }} component={MapScreen} />
-      </StackNavigator.Navigator>
-    </NavigationContainer>
+    <Provider
+      placeStore={ placeStore }
+    >
+      <NavigationContainer>
+        <StackNavigator.Navigator initialRouteName={getInitialRouteName()}>
+          <StackNavigator.Screen
+            name="Auth"
+            component={AuthScreen}
+            options={{ headerShown: false }}
+          />
+          <StackNavigator.Screen name="Home" options={{ headerShown: false, animationEnabled: false }} component={HomeScreen} />
+          <StackNavigator.Screen name="Map" options={{ headerShown: false, animationEnabled: false }} component={MapScreen} />
+        </StackNavigator.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }

@@ -14,6 +14,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { styles } from './voyage-card.style';
 import moment from 'moment';
 import 'moment/locale/fr';
+import Emoji from 'react-native-emoji';
 
 
 moment.locale('fr');
@@ -27,6 +28,7 @@ type Props = {
   height: number;
   img: string;
   onPress: () => void;
+  flag?: string;
 }
 
 const CardComponent: FunctionComponent<Props> = (props: Props) => {
@@ -42,7 +44,7 @@ const CardComponent: FunctionComponent<Props> = (props: Props) => {
         </View>
         <LinearGradient start={Theme.START_INNERSHADOW} end={Theme.END_INNERSHADOW} colors={Theme.INNER_SHADOW_GRADIENT} style={styles.gradient}>  
           <View style={styles.text}>
-            <Text style={styles.titleVoyage}>{props.titleVoyage}</Text>
+            <Text style={styles.titleVoyage}>{props.titleVoyage}  {props.flag && <Emoji name={`flag-${props.flag.toLowerCase()}`} />} </Text>
             <View style={styles.filters}>
               <Text style={styles.travellerFilter}>{props.nbTraveller} voyageurs</Text>
               <Text style={styles.dayFilter}>{props.nbDay} jours</Text>

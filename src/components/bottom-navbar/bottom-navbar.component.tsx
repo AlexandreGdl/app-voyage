@@ -10,6 +10,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../root-stack-parameters-list';
 import Theme from '../../style/theme';
 import ButtonComponent from '../button.component';
+import AsyncStorage from '@react-native-community/async-storage';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, keyof RootStackParamList>;
@@ -74,6 +75,10 @@ const BottomNavBarComponent: FunctionComponent<Props> = (props: Props) => {
     setButtonWidth(layout.width);
   }
 
+  function logout(): void {
+    AsyncStorage.removeItem('token');
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.menu}>
@@ -88,7 +93,7 @@ const BottomNavBarComponent: FunctionComponent<Props> = (props: Props) => {
         <TouchableOpacity onPress={handleGoToMap}>
           <SimpleLineIcons name="map" size={24} color="grey" />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={logout}>
           <SimpleLineIcons name="user" size={24} color="grey" />
         </TouchableOpacity>
       </View>

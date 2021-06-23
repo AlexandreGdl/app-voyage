@@ -91,7 +91,10 @@ const CreateVoyageComponent: FunctionComponent<Props> = (props: Props) => {
         name: `${destination}, ${city.country}`,
         defaultName: `${destination}, ${city.country}`,
         cityName: `${destination}, ${city.country}`,
-        location: city.position,
+        location: {
+          long: city.position.longitude,
+          lat: city.position.latitude,
+        },
         startDate,
         endDate
       }

@@ -75,7 +75,7 @@ const VoyageScreen: FunctionComponent<Props> = inject((stores: Record<string, un
 
   useEffect(() => {
     getVoyageFromStore();
-  }, []);
+  }, [props.voyageStore.usersVoyage]);
   
   return (
     <View style={{ flex: 1 }}>
@@ -89,10 +89,24 @@ const VoyageScreen: FunctionComponent<Props> = inject((stores: Record<string, un
         </TouchableOpacity>
         <View style={[styles.voyageView]}>
           <Text style={[styles.titles]}>Voyageurs</Text>
-          <View style={styles.buttonPlus}>
-            <ButtonComponent onPress={openCard} gradient={Theme.PRIMARY_GRADIENT} childrenStyle={{padding: 15 }}>
-              <Entypo name="plus" size={36} color="white" />
-            </ButtonComponent>
+          <View style={styles.containerProfile}>
+            {
+              voyage && voyage.members.slice(0, 4).map(member => {
+                return (
+                  <View key={member._id} style={styles.pictureProfile}>
+                    <Text style={styles.textPictureProfile}>{member.username.slice(0, 2).toUpperCase()}</Text>
+                  </View>
+                )
+              })
+            }
+            <View style={styles.buttonPlus}>
+              <ButtonComponent onPress={openCard} gradient={Theme.PRIMARY_GRADIENT} style={{marginTop: 0}} childrenStyle={{padding: 15}}>
+                <Entypo name="plus" size={36} color="white" />
+              </ButtonComponent>
+            </View>
+            {
+              voyage && voyage.members.length > 4 && <Text style={styles.plusMember}>+{voyage.members.length - 4} </Text>
+            }
           </View>
           <Text style={[styles.titles]}>Fonctionnalités</Text>
           <View style={styles.card}>
@@ -106,7 +120,7 @@ const VoyageScreen: FunctionComponent<Props> = inject((stores: Record<string, un
         {cardOpen && <Animated.View onTouchEnd={closeCard} style={[styles.darkBackground, { opacity: fadeAnim }]}>
         </Animated.View>}
         <BottomCardComponent open={cardOpen}>
-          <AddTravellerComponent voyageId={props.route.params.voyageId} voyageStore={props.voyageStore} onVoyageCreated={closeCard} />
+          <AddTravellerComponent onActionEnd={closeCard} voyageId={props.route.params.voyageId} voyageStore={props.voyageStore} onVoyageCreated={closeCard} />
         </BottomCardComponent>
     </View>
   );

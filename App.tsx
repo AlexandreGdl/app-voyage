@@ -11,6 +11,7 @@ import MapScreen from './src/screens/map.screen';
 import { PlaceStore } from './src/place/store/place.store';
 import VoyageScreen from './src/screens/voyage.screen';
 import WidgetsScreen from './src/screens/widgets.screen';
+import { VoyageStore } from './src/voyage/store/voyage.store';
 
 
 const StackNavigator = createStackNavigator<RootStackParamList>();
@@ -18,6 +19,7 @@ const StackNavigator = createStackNavigator<RootStackParamList>();
 export default function App() {
 
   const [placeStore] = useState<PlaceStore>(new PlaceStore());
+  const [voyageStore] = useState<VoyageStore>(new VoyageStore());
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [loaded] = useFonts({
     // Montserrat Font
@@ -73,6 +75,7 @@ export default function App() {
   return (
     <Provider
       placeStore={ placeStore }
+      voyageStore={ voyageStore }
     >
       <NavigationContainer>
         <StackNavigator.Navigator initialRouteName={getInitialRouteName()}>

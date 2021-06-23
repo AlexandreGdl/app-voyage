@@ -6,11 +6,14 @@ import { City } from '../../city/interface/city.interface';
 import Theme from '../../style/theme';
 import { CreateVoyageDto } from '../../voyage/dto/create-voyage.dto';
 import { VoyageService } from '../../voyage/service/voyage.service';
+import { VoyageStore } from '../../voyage/store/voyage.store';
 import ButtonComponent from '../button.component';
 import InputLabelComponent from '../form/input-label.component';
 
 type Props = {
   onVoyageCreated: () => void;
+  voyageStore: VoyageStore;
+  voyageId: string;
 }
 
 const styles = StyleSheet.create({
@@ -58,6 +61,13 @@ const AddTravellerComponent: FunctionComponent<Props> = (props: Props) => {
 
   const [identifiant, setIdentifiant] = useState<string | undefined>(undefined);
 
+  async function addMemberToVoyage() {
+    if (identifiant && identifiant.length > 2) {
+      await props.voyageStore.addMemberToVoyage(props.voyageId, identifiant)
+      console.log(identifiant)
+    }
+  }
+  
   return (
     <View style={styles.container}>
       <Text style={styles.cardTitle}>Ajouter un voyageur</Text>
@@ -65,6 +75,7 @@ const AddTravellerComponent: FunctionComponent<Props> = (props: Props) => {
         <InputLabelComponent 
           label='Par identifiant'
           placeholder='@identifiant'
+          onChangeText={(text: string) => setIdentifiant(text)}
           labelStyle={styles.label}
           inputStyle={[styles.reset, {maxWidth: '100%' }]}
           value={identifiant}
@@ -73,6 +84,7 @@ const AddTravellerComponent: FunctionComponent<Props> = (props: Props) => {
       </View>
       <ButtonComponent 
         text="Ajouter"
+        onPress={addMemberToVoyage}
         gradient={Theme.PRIMARY_GRADIENT}
         style={styles.btnStyle}
       />

@@ -1,3 +1,4 @@
+import { inject, observer } from 'mobx-react';
 import React, { FunctionComponent, useState } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import Emoji from 'react-native-emoji';
@@ -6,11 +7,13 @@ import { City } from '../../city/interface/city.interface';
 import Theme from '../../style/theme';
 import { CreateVoyageDto } from '../../voyage/dto/create-voyage.dto';
 import { VoyageService } from '../../voyage/service/voyage.service';
+import { VoyageStore } from '../../voyage/store/voyage.store';
 import ButtonComponent from '../button.component';
 import InputLabelComponent from '../form/input-label.component';
 
 type Props = {
   onVoyageCreated: () => void;
+  voyageStore: VoyageStore,  
 }
 
 const styles = StyleSheet.create({
@@ -84,7 +87,6 @@ const CreateVoyageComponent: FunctionComponent<Props> = (props: Props) => {
   }
 
   async function createVoyage(): Promise<void> {
-    console.log('toto')
 
     if (destination && city && !notFound) {
       const newVoyage: CreateVoyageDto = {
@@ -100,6 +102,8 @@ const CreateVoyageComponent: FunctionComponent<Props> = (props: Props) => {
       }
 
       const myVoyage = await VoyageService.getInstance().createVoyage(newVoyage);
+      await props.voyageStore.fetchAllVoyage();
+      
       if (myVoyage) {
         props.onVoyageCreated();
       }
@@ -152,6 +156,6 @@ const CreateVoyageComponent: FunctionComponent<Props> = (props: Props) => {
       />
     </View>
   );  
-}
+};
 
 export default CreateVoyageComponent;

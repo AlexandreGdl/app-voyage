@@ -1,7 +1,9 @@
 // React
 import { Entypo } from '@expo/vector-icons';
+import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { FunctionComponent, useRef, useState } from 'react';
+import { inject, observer } from 'mobx-react';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 // Tools
 import { Text, View, Image, ImageBackground, Button, Dimensions, ScrollView, Animated, Keyboard } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -14,15 +16,22 @@ import { RootStackParamList } from '../root-stack-parameters-list';
 import Theme from '../style/theme';
 // Styles
 import { styles } from '../style/voyage.style';
+import { Voyage } from '../voyage/interface/voyage.interface';
+import { VoyageStore } from '../voyage/store/voyage.store';
 
 type Props = {
-  navigation: StackNavigationProp<RootStackParamList, 'Voyage'>
+  navigation: StackNavigationProp<RootStackParamList, 'Voyage'>;
+  route: RouteProp<RootStackParamList, 'Voyage'>;
+  voyageStore: VoyageStore;
 }
 
-const VoyageScreen: FunctionComponent<Props> = (props: Props) => {
- 
+const VoyageScreen: FunctionComponent<Props> = inject((stores: Record<string, unknown>) => ({
+  voyageStore: stores.voyageStore as VoyageStore,
+}))(observer((props: Props) => { 
+
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const [cardOpen, setCardOpen] = useState<boolean>(false);
+  const [voyage, setVoyage] = useState<Voyage | null>(null);
 
   function goBack(): void {
     props.navigation.goBack();
@@ -55,6 +64,19 @@ const VoyageScreen: FunctionComponent<Props> = (props: Props) => {
     ).start();
   }
 
+  function getVoyageFromStore(): void {
+    const newVoyage = props.voyageStore.usersVoyage.find((toFind: Voyage) => toFind._id === props.route.params.voyageId);
+    if (newVoyage) {
+      setVoyage(newVoyage);
+    } else {
+      props.navigation.goBack();
+    }
+  }
+
+  useEffect(() => {
+    getVoyageFromStore();
+  }, []);
+  
   return (
     <View style={{ flex: 1 }}>
       <ScrollView>
@@ -84,10 +106,10 @@ const VoyageScreen: FunctionComponent<Props> = (props: Props) => {
         {cardOpen && <Animated.View onTouchEnd={closeCard} style={[styles.darkBackground, { opacity: fadeAnim }]}>
         </Animated.View>}
         <BottomCardComponent open={cardOpen}>
-          <AddTravellerComponent onVoyageCreated={closeCard} />
+          <AddTravellerComponent voyageId={props.route.params.voyageId} voyageStore={props.voyageStore} onVoyageCreated={closeCard} />
         </BottomCardComponent>
     </View>
   );
-}
+}));
 
 export default VoyageScreen;

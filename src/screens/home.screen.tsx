@@ -2,8 +2,7 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 // Tools
-import { Text, Animated, View, ImageBackground, KeyboardAvoidingView, Platform, Keyboard, Image, Dimensions } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Text, Animated, View, ImageBackground, KeyboardAvoidingView, Keyboard, Image, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import BottomNavBarComponent from '../components/bottom-navbar/bottom-navbar.component';
 import CreateVoyageComponent from '../components/create-voyage/create-voyage.component';
@@ -11,7 +10,6 @@ import { RootStackParamList } from '../root-stack-parameters-list';
 import { styles } from '../style/home.style';
 import { ScrollView } from 'react-native-gesture-handler';
 import CardComponent from '../components/voyage-card/voyage-card.component';
-import Theme from '../style/theme';
 import BottomCardComponent from '../components/bottom-card/bottom-card.component';
 import { VoyageStore } from '../voyage/store/voyage.store';
 import { inject, observer } from 'mobx-react';

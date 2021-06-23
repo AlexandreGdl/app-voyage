@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { User } from "../../user/interface/user.interface";
 import { Location } from "../../voyage/interface/location.interface";
+import { Widget } from "../../widget/interface/widget.interface";
 import { Voyage } from "../interface/voyage.interface";
 
 export class VoyageObject implements Voyage {
@@ -18,6 +19,7 @@ export class VoyageObject implements Voyage {
   endDate: Date;
   cityName: string;
   location: Location;
+  activeWidgets: Widget[];
 
   constructor (voyage: Voyage) {
     this._id = voyage._id;
@@ -33,6 +35,7 @@ export class VoyageObject implements Voyage {
     this.endDate = voyage.endDate;
     this.cityName = voyage.cityName;
     this.location = voyage.location;
+    this.activeWidgets = voyage.activeWidgets;
 
     makeAutoObservable(this);
   }
@@ -55,7 +58,8 @@ export class VoyageObject implements Voyage {
       startDate : this.startDate,
       endDate : this.endDate,
       cityName : this.cityName,
-      location : this.location
+      location : this.location,
+      activeWidgets : this.activeWidgets
     };
   }
 }

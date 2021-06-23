@@ -14,6 +14,7 @@ type Props = {
   onVoyageCreated: () => void;
   voyageStore: VoyageStore;
   voyageId: string;
+  onActionEnd(): void;
 }
 
 const styles = StyleSheet.create({
@@ -63,8 +64,10 @@ const AddTravellerComponent: FunctionComponent<Props> = (props: Props) => {
 
   async function addMemberToVoyage() {
     if (identifiant && identifiant.length > 2) {
-      await props.voyageStore.addMemberToVoyage(props.voyageId, identifiant)
-      console.log(identifiant)
+      await props.voyageStore.addMemberToVoyage(props.voyageId, identifiant);
+
+      await props.voyageStore.fetchAllVoyage();
+      props.onActionEnd();
     }
   }
   
@@ -74,7 +77,7 @@ const AddTravellerComponent: FunctionComponent<Props> = (props: Props) => {
       <View style={{ maxWidth: '100%' }}>
         <InputLabelComponent 
           label='Par identifiant'
-          placeholder='@identifiant'
+          placeholder='@Identifiant'
           onChangeText={(text: string) => setIdentifiant(text)}
           labelStyle={styles.label}
           inputStyle={[styles.reset, {maxWidth: '100%' }]}

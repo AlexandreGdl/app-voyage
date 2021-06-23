@@ -20,14 +20,13 @@ export const styles = StyleSheet.create({
     titles : {
         fontFamily: 'Montserrat-Bold',
         fontSize: 18,
-        paddingBottom: 10
+        marginBottom: 20
     },
     voyageView : {
         paddingHorizontal: Theme.PAGE_PADDING_HORIZONTAL
     },
     buttonPlus: {
         alignItems: 'flex-start',
-        paddingBottom: 50,
         shadowColor: "#000", 
         shadowOffset: {
           width: 0,
@@ -57,6 +56,37 @@ export const styles = StyleSheet.create({
     },
     goBackText : {
         color: 'grey',
+        fontFamily: 'Montserrat-Medium'
+    },
+    containerProfile : {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 25
+    },
+    pictureProfile : {
+        backgroundColor: '#dedede',
+        width: 66,
+        height: 67.3,
+        borderRadius: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        shadowColor: "#000", 
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        marginRight: -10
+    },
+    textPictureProfile : {
+        fontSize: 20,
+        fontFamily: 'Montserrat-Medium'
+    },
+    plusMember : {
+        fontSize: 18,
+        marginLeft: 20,
         fontFamily: 'Montserrat-Medium'
     }
 });

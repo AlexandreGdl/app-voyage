@@ -1,3 +1,6 @@
+import { Entypo } from "@expo/vector-icons";
+import { WidgetType } from "../screens/widgets.screen";
+
 /**
  * Check if an email is valid
  * @param {string} email email to check

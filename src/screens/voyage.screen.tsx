@@ -17,7 +17,10 @@ import Theme from '../style/theme';
 // Styles
 import { styles } from '../style/voyage.style';
 import { Voyage } from '../voyage/interface/voyage.interface';
+import { VoyageObject } from '../voyage/object/voyage.object';
 import { VoyageStore } from '../voyage/store/voyage.store';
+import { Widget } from '../widget/interface/widget.interface';
+import { WidgetType, defaultWidgets, WidgetUI } from './widgets.screen';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Voyage'>;
@@ -38,7 +41,7 @@ const VoyageScreen: FunctionComponent<Props> = inject((stores: Record<string, un
   };
 
   function goToWidgets() : void {
-    props.navigation.navigate('Widgets');
+    props.navigation.navigate('Widgets', { voyageId: props.route.params.voyageId });
   };
   
   function closeCard(): void {
@@ -65,17 +68,21 @@ const VoyageScreen: FunctionComponent<Props> = inject((stores: Record<string, un
   }
 
   function getVoyageFromStore(): void {
-    const newVoyage = props.voyageStore.usersVoyage.find((toFind: Voyage) => toFind._id === props.route.params.voyageId);
+    const newVoyage = props.voyageStore.usersVoyage.find((toFind: VoyageObject) => toFind._id === props.route.params.voyageId);
     if (newVoyage) {
-      setVoyage(newVoyage);
+      setVoyage(newVoyage.toJS());
     } else {
       props.navigation.goBack();
     }
   }
 
+  function generateIcon(icon: WidgetType): JSX.Element | undefined {
+    return defaultWidgets.find((value: WidgetUI) => value.type === icon)?.icon;
+  }
+
   useEffect(() => {
     getVoyageFromStore();
-  }, []);
+  }, [props.voyageStore.usersVoyage]);
   
   return (
     <View style={{ flex: 1 }}>
@@ -99,6 +106,11 @@ const VoyageScreen: FunctionComponent<Props> = inject((stores: Record<string, un
             <FeatureCard onPress={goToWidgets} textStyle={{color: 'white'}} text="Ajouter" gradient={Theme.PRIMARY_GRADIENT}>
               <Entypo name="plus" size={36} color="white" />
             </FeatureCard>
+            {voyage && voyage.activeWidgets.map((widget: Widget) => (
+              <FeatureCard textStyle={{color: 'black'}} text={widget.name} gradient={['#fff', '#fff']}>
+                {generateIcon(widget.name)}
+              </FeatureCard>
+            ))}
           </View>
         </View>
         </ScrollView>

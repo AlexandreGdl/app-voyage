@@ -23,7 +23,7 @@ export class VoyageService {
 
   public async createVoyage(voyage: CreateVoyageDto): Promise<Voyage> {
     const token = await AsyncStorage.getItem('token');
-    
+
     return this.apiService.request<Voyage>('post', '/voyages', { headers: { 'Authorization': `${token}` } ,body: voyage });
   }
 
@@ -38,4 +38,12 @@ export class VoyageService {
 
     return this.apiService.request<Voyage>('put', '/voyages/add-members', { headers: { 'Authorization': `${token}`}, body: { voyageId, username } });
   }
+  
+  public async toggleWidget(voyageId: string, widgetId: string): Promise<void> {
+    const token = await AsyncStorage.getItem('token');
+  
+    return this.apiService.request('put', '/voyages/widgets', { headers: { 'Authorization': `${token}` } , body: { voyageId, widgetId } });
+  }
+
+
 }

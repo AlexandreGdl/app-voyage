@@ -1,5 +1,6 @@
 import { User } from "../../user/interface/user.interface";
 import { Location } from "../../voyage/interface/location.interface";
+import { Widget } from "../../widget/interface/widget.interface";
 
 export interface Voyage {
     _id: string;
@@ -15,4 +16,5 @@ export interface Voyage {
     endDate: Date;
     cityName: string;
     location: Location;
+    activeWidgets: Widget[];
 }

@@ -27,4 +27,15 @@ export class VoyageService {
     return this.apiService.request<Voyage>('post', '/voyages', { headers: { 'Authorization': `${token}` } ,body: voyage });
   }
 
+  public async getVoyages(): Promise<Voyage[]> {
+    const token = await AsyncStorage.getItem('token');
+
+    return this.apiService.request<Voyage[]>('get', '/voyages', { headers: { 'Authorization': `${token}` } });
+  }
+
+  public async addMember(voyageId: string, username: string): Promise<Voyage> {
+    const token = await AsyncStorage.getItem('token');
+
+    return this.apiService.request<Voyage>('put', '/voyages/add-members', { headers: { 'Authorization': `${token}`}, body: { voyageId, username } });
+  }
 }

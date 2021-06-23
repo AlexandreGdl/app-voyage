@@ -11,16 +11,20 @@ import { styles } from '../style/home.style';
 import { ScrollView } from 'react-native-gesture-handler';
 import CardComponent from '../components/voyage-card/voyage-card.component';
 import BottomCardComponent from '../components/bottom-card/bottom-card.component';
+import { VoyageStore } from '../voyage/store/voyage.store';
+import { inject, observer } from 'mobx-react';
 
 type Props = {
-  navigation: StackNavigationProp<RootStackParamList, 'Home'>
+  navigation: StackNavigationProp<RootStackParamList, 'Home'>;
+  voyageStore: VoyageStore;
 }
 
-const HomeScreen: FunctionComponent<Props> = (props: Props) => {
+const HomeScreen: FunctionComponent<Props> = inject((stores: Record<string, unknown>) => ({
+  voyageStore: stores.voyageStore as VoyageStore,
+}))(observer((props: Props) => {
 
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const [cardOpen, setCardOpen] = useState<boolean>(false);
-
 
   function closeCard(): void {
     Keyboard.dismiss();
@@ -45,9 +49,13 @@ const HomeScreen: FunctionComponent<Props> = (props: Props) => {
     ).start();
   }
 
-  function handleGoToVoyage(): void {
-    props.navigation.navigate('Voyage');
+  function handleGoToVoyage(voyageId: string): void {
+    props.navigation.navigate('Voyage', { voyageId });
   }
+
+  useEffect(() => {
+    props.voyageStore.fetchAllVoyage();
+  }, []);
 
   return (
     <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
@@ -60,13 +68,18 @@ const HomeScreen: FunctionComponent<Props> = (props: Props) => {
           <View style={{ flex: 1 }}>
             <Text style={styles.textVoyage}>Vos voyages</Text>
             <ScrollView showsHorizontalScrollIndicator={false} contentContainerStyle={styles.cardContainer} horizontal>
-              <CardComponent onPress={handleGoToVoyage} img='https://images.pexels.com/photos/38238/maldives-ile-beach-sun-38238.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' width={Dimensions.get('screen').width/2} height={Dimensions.get('screen').width/2} titleVoyage='Lisbonne, Portugal' nbTraveller={4} nbDay={7} date={new Date()}/>
-              <CardComponent onPress={handleGoToVoyage} img='https://images.pexels.com/photos/33545/sunrise-phu-quoc-island-ocean.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'  width={Dimensions.get('screen').width/2} height={Dimensions.get('screen').width/2} titleVoyage='Lisbonne, Portugal' nbTraveller={4} nbDay={7} date={new Date()}/>
+              {
+                props.voyageStore.usersVoyage.map(voyage => {
+                  return (
+                    <CardComponent key={voyage._id} onPress={(): void => handleGoToVoyage(voyage._id)} img='https://images.pexels.com/photos/38238/maldives-ile-beach-sun-38238.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' width={Dimensions.get('screen').width/2} height={Dimensions.get('screen').width/2} titleVoyage={voyage.name} flag={voyage.cityName.split(', ')[1]} nbTraveller={4} nbDay={7} date={new Date()}/>
+                  )
+                })
+              }
             </ScrollView>
             <Text style={styles.textVoyage}>Pour vous</Text>
             <ScrollView showsHorizontalScrollIndicator={false} contentContainerStyle={[styles.cardContainer, {paddingBottom: 140}]} horizontal>
-              <CardComponent onPress={handleGoToVoyage} img='https://images.pexels.com/photos/1078983/pexels-photo-1078983.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' width={Dimensions.get('screen').width/1.3} height={Dimensions.get('screen').width/1.3} titleVoyage='Lisbonne, Portugal' nbTraveller={4} nbDay={7} date={new Date()}/>
-              <CardComponent onPress={handleGoToVoyage} img='https://images.pexels.com/photos/221457/pexels-photo-221457.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' width={Dimensions.get('screen').width/1.3} height={Dimensions.get('screen').width/1.3} titleVoyage='Lisbonne, Portugal' nbTraveller={4} nbDay={7} date={new Date()}/>
+              <CardComponent onPress={(): void => handleGoToVoyage('2')} img='https://images.pexels.com/photos/1078983/pexels-photo-1078983.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' width={Dimensions.get('screen').width/1.3} height={Dimensions.get('screen').width/1.3} titleVoyage='Lisbonne, Portugal' nbTraveller={4} nbDay={7} date={new Date()}/>
+              <CardComponent onPress={(): void => handleGoToVoyage('qsdqsd')} img='https://images.pexels.com/photos/221457/pexels-photo-221457.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' width={Dimensions.get('screen').width/1.3} height={Dimensions.get('screen').width/1.3} titleVoyage='Lisbonne, Portugal' nbTraveller={4} nbDay={7} date={new Date()}/>
             </ScrollView>
           </View>
         </ScrollView>
@@ -75,11 +88,12 @@ const HomeScreen: FunctionComponent<Props> = (props: Props) => {
         {cardOpen && <Animated.View onTouchEnd={closeCard} style={[styles.darkBackground, { opacity: fadeAnim }]}>
           </Animated.View>}
         <BottomCardComponent open={cardOpen}>
-          <CreateVoyageComponent onVoyageCreated={closeCard} />
+          <CreateVoyageComponent voyageStore={props.voyageStore} onVoyageCreated={closeCard} />
         </BottomCardComponent>
       </SafeAreaView>
     </KeyboardAvoidingView>
   );
-}
+}));
+
 
 export default HomeScreen;

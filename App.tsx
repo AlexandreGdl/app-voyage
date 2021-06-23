@@ -9,6 +9,8 @@ import HomeScreen from './src/screens/home.screen';
 import { RootStackParamList } from './src/root-stack-parameters-list';
 import MapScreen from './src/screens/map.screen';
 import { PlaceStore } from './src/place/store/place.store';
+import VoyageScreen from './src/screens/voyage.screen';
+import WidgetsScreen from './src/screens/widgets.screen';
 
 
 const StackNavigator = createStackNavigator<RootStackParamList>();
@@ -81,6 +83,8 @@ export default function App() {
           />
           <StackNavigator.Screen name="Home" options={{ headerShown: false, animationEnabled: false }} component={HomeScreen} />
           <StackNavigator.Screen name="Map" options={{ headerShown: false, animationEnabled: false }} component={MapScreen} />
+          <StackNavigator.Screen name="Voyage" options={{ headerShown: false }} component={VoyageScreen} />
+          <StackNavigator.Screen name="Widgets" options={{ headerShown: false }} component={WidgetsScreen} />
         </StackNavigator.Navigator>
       </NavigationContainer>
     </Provider>

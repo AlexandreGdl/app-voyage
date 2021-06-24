@@ -5,8 +5,9 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { inject, observer } from 'mobx-react';
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 // Tools
-import { Text, View, Image, ImageBackground, Button, Dimensions, ScrollView, Animated, Keyboard } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Text, View, Image, ImageBackground, Button, Dimensions, ScrollView, Animated, Keyboard, KeyboardAvoidingView } from 'react-native';
+import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { LinearGradient } from 'expo-linear-gradient';
 import AddTravellerComponent from '../components/add-traveller/add-traveller.component';
 import BottomCardComponent from '../components/bottom-card/bottom-card.component';
 import BottomNavBarComponent from '../components/bottom-navbar/bottom-navbar.component';
@@ -16,20 +17,25 @@ import { RootStackParamList } from '../root-stack-parameters-list';
 import Theme from '../style/theme';
 // Styles
 import { styles } from '../style/voyage.style';
+import { UserStore } from '../user/store/user.store';
 import { Voyage } from '../voyage/interface/voyage.interface';
 import { VoyageObject } from '../voyage/object/voyage.object';
 import { VoyageStore } from '../voyage/store/voyage.store';
 import { Widget } from '../widget/interface/widget.interface';
 import { WidgetType, defaultWidgets, WidgetUI } from './widgets.screen';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import UserPictureProfile from '../components/user-picture-profile/user-picture-profile.component';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Voyage'>;
   route: RouteProp<RootStackParamList, 'Voyage'>;
   voyageStore: VoyageStore;
+  userStore: UserStore;
 }
 
 const VoyageScreen: FunctionComponent<Props> = inject((stores: Record<string, unknown>) => ({
   voyageStore: stores.voyageStore as VoyageStore,
+  userStore: stores.userStore as UserStore,
 }))(observer((props: Props) => { 
 
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -43,6 +49,10 @@ const VoyageScreen: FunctionComponent<Props> = inject((stores: Record<string, un
   function goToWidgets() : void {
     props.navigation.navigate('Widgets', { voyageId: props.route.params.voyageId });
   };
+
+  function goToTravellers(): void {
+    props.navigation.navigate('Traveller', { voyageId: props.route.params.voyageId })
+  }
   
   function closeCard(): void {
     Keyboard.dismiss();
@@ -85,56 +95,69 @@ const VoyageScreen: FunctionComponent<Props> = inject((stores: Record<string, un
   }, [props.voyageStore.usersVoyage]);
   
   return (
-    <View style={{ flex: 1 }}>
-      <ScrollView>
-        <View style={styles.logoContainer}>
-            <Image source={require('../../assets/plannit-1.png')} resizeMode='contain' style={styles.logo}/>
-        </View>
-        <TouchableOpacity onPress={goBack} style={styles.goBackButton}>
-          <Entypo name="chevron-left" size={36} color="grey" />
-          <Text style={styles.goBackText}>Retour</Text>
-        </TouchableOpacity>
-        <View style={[styles.voyageView]}>
-          <Text style={[styles.titles]}>Voyageurs</Text>
-          <View style={styles.containerProfile}>
-            {
-              voyage && voyage.members.slice(0, 4).map(member => {
-                return (
-                  <View key={member._id} style={styles.pictureProfile}>
-                    <Text style={styles.textPictureProfile}>{member.username.slice(0, 2).toUpperCase()}</Text>
+    <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <ScrollView>
+          <View style={styles.logoContainer}>
+              <Image source={require('../../assets/plannit-1.png')} resizeMode='contain' style={styles.logo}/>
+          </View>
+          <TouchableOpacity onPress={goBack} style={styles.goBackButton}>
+            <Entypo name="chevron-left" size={36} color="grey" />
+            <Text style={styles.goBackText}>Retour</Text>
+          </TouchableOpacity>
+          <View style={styles.voyageView}>
+            <Text style={styles.titles}>Voyageurs</Text>
+            <View  style={styles.containerProfile}>
+              <TouchableWithoutFeedback onPress={goToTravellers}  style={styles.wrapperListProfile}>
+                {
+                  voyage && voyage.owner &&
+                  <View key={voyage.owner._id} style={[styles.pictureProfile, voyage.owner._id === props.userStore._id && styles.me]}>
+                    <Text style={styles.textPictureProfile}>{voyage.owner.username.slice(0, 2).toUpperCase()}</Text>
                   </View>
-                )
-              })
-            }
-            <View style={styles.buttonPlus}>
-              <ButtonComponent onPress={openCard} gradient={Theme.PRIMARY_GRADIENT} style={{marginTop: 0}} childrenStyle={{padding: 15}}>
-                <Entypo name="plus" size={36} color="white" />
-              </ButtonComponent>
+                }
+                {
+                  voyage && voyage.members.slice(0, 4).map(member => {
+                    return (
+                        member._id === props.userStore._id ?
+                        <UserPictureProfile isActive={true} user={member} />
+                      :
+                      <View key={member._id} style={styles.pictureProfile}>
+                        <Text style={styles.textPictureProfile}>{member.username.slice(0, 2).toUpperCase()}</Text>
+                      </View>
+                    )
+                  })
+                }
+              </TouchableWithoutFeedback>
+              <View style={styles.buttonPlus}>
+                <ButtonComponent onPress={openCard} gradient={Theme.PRIMARY_GRADIENT} style={{marginTop: 0}} childrenStyle={{padding: 15}}>
+                  <Entypo name="plus" size={36} color="white" />
+                </ButtonComponent>
+              </View>
+              {
+                voyage && voyage.members.length > 4 && <Text style={styles.plusMember}>+{voyage.members.length - 4} </Text>
+              }
             </View>
-            {
-              voyage && voyage.members.length > 4 && <Text style={styles.plusMember}>+{voyage.members.length - 4} </Text>
-            }
-          </View>
-          <Text style={[styles.titles]}>Fonctionnalités</Text>
-          <View style={styles.card}>
-            <FeatureCard onPress={goToWidgets} textStyle={{color: 'white'}} text="Ajouter" gradient={Theme.PRIMARY_GRADIENT}>
-              <Entypo name="plus" size={36} color="white" />
-            </FeatureCard>
-            {voyage && voyage.activeWidgets.map((widget: Widget) => (
-              <FeatureCard textStyle={{color: 'black'}} text={widget.name} gradient={['#fff', '#fff']}>
-                {generateIcon(widget.name)}
+            <Text style={[styles.titles]}>Fonctionnalités</Text>
+            <View style={styles.card}>
+              <FeatureCard onPress={goToWidgets} textStyle={{color: 'white'}} text="Ajouter" gradient={Theme.PRIMARY_GRADIENT}>
+                <Entypo name="plus" size={36} color="white" />
               </FeatureCard>
-            ))}
+              {voyage && voyage.activeWidgets.map((widget: Widget) => (
+                <FeatureCard textStyle={{color: 'black'}} text={widget.name} gradient={['#fff', '#fff']}>
+                  {generateIcon(widget.name)}
+                </FeatureCard>
+              ))}
+            </View>
           </View>
-        </View>
-        </ScrollView>
+          </ScrollView>
 
-        {cardOpen && <Animated.View onTouchEnd={closeCard} style={[styles.darkBackground, { opacity: fadeAnim }]}>
-        </Animated.View>}
-        <BottomCardComponent open={cardOpen}>
-          <AddTravellerComponent onActionEnd={closeCard} voyageId={props.route.params.voyageId} voyageStore={props.voyageStore} onVoyageCreated={closeCard} />
-        </BottomCardComponent>
-    </View>
+          {cardOpen && <Animated.View onTouchEnd={closeCard} style={[styles.darkBackground, { opacity: fadeAnim }]}>
+          </Animated.View>}
+          <BottomCardComponent open={cardOpen}>
+            <AddTravellerComponent onActionEnd={closeCard} voyageId={props.route.params.voyageId} voyageStore={props.voyageStore} onVoyageCreated={closeCard} />
+          </BottomCardComponent>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }));
 

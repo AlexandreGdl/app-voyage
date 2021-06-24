@@ -13,7 +13,7 @@ import ButtonComponent from '../button.component';
 import AsyncStorage from '@react-native-community/async-storage';
 
 type Props = {
-  navigation: StackNavigationProp<RootStackParamList, keyof RootStackParamList>;
+  navigation?: StackNavigationProp<RootStackParamList, keyof RootStackParamList>;
   onBtnPressed?: () => void;
 }
 
@@ -63,11 +63,11 @@ const BottomNavBarComponent: FunctionComponent<Props> = (props: Props) => {
   const [buttonWidth, setButtonWidth] = useState(50);
 
   function handleGoToMap(): void {
-    props.navigation.replace('Map');
+    props.navigation?.replace('Map');
   }
 
   function handleGoToHome(): void {
-    props.navigation.replace('Home');
+    props.navigation?.replace('Home');
   }
 
   function getButtonWidth(event: LayoutChangeEvent): void {

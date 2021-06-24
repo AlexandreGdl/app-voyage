@@ -15,6 +15,9 @@ import { WidgetStore } from './src/widget/store/widget.store';
 import { VoyageStore } from './src/voyage/store/voyage.store';
 import { UserService } from './src/user/service/user.service';
 import { UserStore } from './src/user/store/user.store';
+import { useNavigation } from '@react-navigation/native';
+import BottomNavBarComponent from './src/components/bottom-navbar/bottom-navbar.component';
+import TravellerScreen from './src/screens/traveller.screen';
 
 
 const StackNavigator = createStackNavigator<RootStackParamList>();
@@ -109,8 +112,10 @@ export default function App() {
           <StackNavigator.Screen name="Home" options={{ headerShown: false, animationEnabled: false }} component={HomeScreen} />
           <StackNavigator.Screen name="Map" options={{ headerShown: false, animationEnabled: false }} component={MapScreen} />
           <StackNavigator.Screen name="Voyage" options={{ headerShown: false }} component={VoyageScreen} />
+          <StackNavigator.Screen name="Traveller" options={{ headerShown: false }} component={TravellerScreen} />
           <StackNavigator.Screen name="Widgets" options={{ headerShown: false }} component={WidgetsScreen} />
         </StackNavigator.Navigator>
+
       </NavigationContainer>
     </Provider>
   );

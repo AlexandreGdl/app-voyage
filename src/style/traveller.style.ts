@@ -22,32 +22,11 @@ export const styles = StyleSheet.create({
         fontSize: 18,
         marginBottom: 20
     },
-    voyageView : {
+    travellerView : {
         paddingHorizontal: Theme.PAGE_PADDING_HORIZONTAL
     },
-    buttonPlus: {
-        shadowColor: "#000", 
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-        marginLeft: -10
-    },
-    card : {
-        shadowColor: "#000", 
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between'
+    wrapper: {
+        alignItems: 'flex-start',
     },
     goBackButton : {
         alignItems: 'center',
@@ -59,13 +38,22 @@ export const styles = StyleSheet.create({
         fontFamily: 'Montserrat-Medium',
         fontSize: 16
     },
-    containerProfile : {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 25
+    buttonPlus: {
+        shadowColor: "#000", 
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        position: 'absolute',
+        right: 30,
+        bottom: 30
     },
-    wrapperListProfile : {
-        flexDirection: 'row'
+    textPictureProfile : {
+        fontSize: 20,
+        fontFamily: 'Montserrat-Medium'
     },
     pictureProfile : {
         backgroundColor: '#dedede',
@@ -82,20 +70,6 @@ export const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
-        marginLeft: -10
-    },
-    textPictureProfile : {
-        fontSize: 20,
-        fontFamily: 'Montserrat-Medium'
-    },
-    plusMember : {
-        fontSize: 18,
-        marginLeft: 20,
-        fontFamily: 'Montserrat-Medium'
-    },
-    me : {
-        borderColor: 'grey',
-        borderWidth: 1
     },
     linearBorder : {
         height: 80, 
@@ -104,4 +78,16 @@ export const styles = StyleSheet.create({
         justifyContent: 'center', 
         borderRadius:82 / 2
     },
+    me : {
+    },
+    travellersElement : {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 10,
+    },
+    username : {
+        fontSize: 18,
+        marginLeft: 40,
+        fontFamily: 'Montserrat',
+    }
 });

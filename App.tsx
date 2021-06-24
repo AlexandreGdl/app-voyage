@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import AuthScreen from './src/screens/auth.screen';
 import { useFonts } from 'expo-font';
 import { Provider } from 'mobx-react';
@@ -13,6 +13,8 @@ import VoyageScreen from './src/screens/voyage.screen';
 import WidgetsScreen from './src/screens/widgets.screen';
 import { WidgetStore } from './src/widget/store/widget.store';
 import { VoyageStore } from './src/voyage/store/voyage.store';
+import { UserService } from './src/user/service/user.service';
+import { UserStore } from './src/user/store/user.store';
 
 
 const StackNavigator = createStackNavigator<RootStackParamList>();
@@ -21,8 +23,10 @@ export default function App() {
 
   const [placeStore] = useState<PlaceStore>(new PlaceStore());
   const [widgetStore] = useState<WidgetStore>(new WidgetStore());
+  const [userStore] = useState<UserStore>(new UserStore());
   const [voyageStore] = useState<VoyageStore>(new VoyageStore());
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [loaded] = useFonts({
     // Montserrat Font
     'Montserrat': {
@@ -58,7 +62,13 @@ export default function App() {
   async function getUser(): Promise<void> {
     const token = await AsyncStorage.getItem('token');
 
-    if (token) setIsLoggedIn(true);
+    if (token) {
+      const user = await UserService.getInstance().getUserConnected();
+      if (user) {
+        userStore.initUser(user);
+        setIsLoggedIn(true);
+      }
+    }
   }
 
   function getInitialRouteName(): keyof RootStackParamList | undefined {
@@ -73,17 +83,21 @@ export default function App() {
   useEffect(() => {
     (async () => {
       await getUser();
-      if (isLoggedIn) await getWidgets();
+      if (isLoggedIn) {
+        await getWidgets();
+      }
+      setLoading(false);
     })();
   }, []);
   
-  if (!loaded ) return null;
+  if (!loaded || loading) return null;
   
   return (
     <Provider
       placeStore={ placeStore }
       widgetStore={ widgetStore }
       voyageStore={ voyageStore }
+      userStore={ userStore }
     >
       <NavigationContainer>
         <StackNavigator.Navigator initialRouteName={getInitialRouteName()}>

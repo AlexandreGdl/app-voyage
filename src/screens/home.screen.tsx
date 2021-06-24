@@ -67,6 +67,9 @@ const HomeScreen: FunctionComponent<Props> = inject((stores: Record<string, unkn
           </ImageBackground>
           <View style={{ flex: 1 }}>
             <Text style={styles.textVoyage}>Vos voyages</Text>
+            {
+                props.voyageStore.usersVoyage.length === 0 && <Text style={styles.subtitle}>Pour créer un voyage, utiliser le bouton plus en bas de votre écran.</Text>
+            }
             <ScrollView showsHorizontalScrollIndicator={false} contentContainerStyle={styles.cardContainer} horizontal>
               {
                 props.voyageStore.usersVoyage.map(voyage => {

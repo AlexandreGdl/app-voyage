@@ -45,5 +45,8 @@ export const styles = StyleSheet.create({
       paddingTop: 40,
       paddingBottom: 10,
       paddingLeft: Theme.PAGE_PADDING_HORIZONTAL
+  },
+  subtitle :{
+    paddingHorizontal: Theme.PAGE_PADDING_HORIZONTAL
   }
 });

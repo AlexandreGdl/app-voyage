@@ -12,13 +12,21 @@ import ButtonComponent from '../components/button.component';
 import Theme from '../style/theme';
 import { UserService } from '../user/service/user.service';
 import { emailIsValid, isPhoneNumberValid } from '../common/utils';
+import { inject, observer } from 'mobx-react';
+import { UserStore } from '../user/store/user.store';
+import { RootStackParamList } from '../root-stack-parameters-list';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 
 type Props = {
   isLogin?: boolean;
+  navigation: StackNavigationProp<RootStackParamList, 'Auth'>;
+  userStore: UserStore;
 }
 
-const AuthScreen: FunctionComponent<Props> = (props: Props) => {
+const AuthScreen: FunctionComponent<Props> = inject((stores: Record<string, unknown>) => ({
+  userStore: stores.userStore as UserStore,
+}))(observer((props: Props) => { 
 
   const translateY = useRef(new Animated.Value(600)).current;
   const [email, setEmail] = useState<string | undefined>(undefined);
@@ -73,7 +81,14 @@ const AuthScreen: FunctionComponent<Props> = (props: Props) => {
       const token = await UserService.getInstance().login({email, password});
       if (token && token.token) {
         await AsyncStorage.setItem('token', token.token.toString());
+        const user = await UserService.getInstance().getUserConnected();
+        if (user) {
+          props.userStore.initUser(user);
+        }
         closeForm();
+        if ( user ) {
+          props.navigation.replace('Home')
+        }
       }
     }
   }
@@ -177,6 +192,6 @@ const AuthScreen: FunctionComponent<Props> = (props: Props) => {
         </ImageBackground>
       </KeyboardAvoidingView>
   );
-}
+}));
 
 export default AuthScreen;

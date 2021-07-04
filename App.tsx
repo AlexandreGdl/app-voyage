@@ -15,6 +15,7 @@ import { WidgetStore } from './src/widget/store/widget.store';
 import { VoyageStore } from './src/voyage/store/voyage.store';
 import { UserService } from './src/user/service/user.service';
 import { UserStore } from './src/user/store/user.store';
+import SlatesScreen from './src/screens/slates.screen';
 
 
 const StackNavigator = createStackNavigator<RootStackParamList>();
@@ -107,6 +108,7 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <StackNavigator.Screen name="Home" options={{ headerShown: false, animationEnabled: false }} component={HomeScreen} />
+          <StackNavigator.Screen name="Slates" options={{ headerShown: false }} component={SlatesScreen} />
           <StackNavigator.Screen name="Map" options={{ headerShown: false, animationEnabled: false }} component={MapScreen} />
           <StackNavigator.Screen name="Voyage" options={{ headerShown: false }} component={VoyageScreen} />
           <StackNavigator.Screen name="Widgets" options={{ headerShown: false }} component={WidgetsScreen} />

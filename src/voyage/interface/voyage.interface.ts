@@ -1,3 +1,4 @@
+import { Slate } from "../../slate/interface/slate.interface";
 import { User } from "../../user/interface/user.interface";
 import { Location } from "../../voyage/interface/location.interface";
 import { Widget } from "../../widget/interface/widget.interface";
@@ -17,4 +18,5 @@ export interface Voyage {
     cityName: string;
     location: Location;
     activeWidgets: Widget[];
+    slates: Slate[];
 }

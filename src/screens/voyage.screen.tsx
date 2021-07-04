@@ -80,6 +80,11 @@ const VoyageScreen: FunctionComponent<Props> = inject((stores: Record<string, un
     return defaultWidgets.find((value: WidgetUI) => value.type === icon)?.icon;
   }
 
+  function goToOneWidgets(widget: Widget): void {
+    const { link } = defaultWidgets.filter((value: WidgetUI) => value.type === widget.name)[0];
+    if (link) props.navigation.navigate(link, { voyageId: props.route.params.voyageId });
+  }
+
   useEffect(() => {
     getVoyageFromStore();
   }, [props.voyageStore.usersVoyage]);
@@ -121,7 +126,7 @@ const VoyageScreen: FunctionComponent<Props> = inject((stores: Record<string, un
               <Entypo name="plus" size={36} color="white" />
             </FeatureCard>
             {voyage && voyage.activeWidgets.map((widget: Widget) => (
-              <FeatureCard textStyle={{color: 'black'}} text={widget.name} gradient={['#fff', '#fff']}>
+              <FeatureCard onPress={(): void => goToOneWidgets(widget)} textStyle={{color: 'black'}} text={widget.name} gradient={['#fff', '#fff']}>
                 {generateIcon(widget.name)}
               </FeatureCard>
             ))}

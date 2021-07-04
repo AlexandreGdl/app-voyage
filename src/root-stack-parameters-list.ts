@@ -6,4 +6,5 @@ export type RootStackParamList = {
   Map: undefined;
   Voyage: { voyageId: string };
   Widgets: { voyageId: string };
+  Slates: { voyageId: string };
 }

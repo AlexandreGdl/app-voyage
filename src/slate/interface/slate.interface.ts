@@ -1,6 +1,7 @@
 import { User } from "../../user/interface/user.interface";
 
 export interface Slate {
+  _id: string;
   donorId: string;
   recipientId: string;
   amount: number;
@@ -9,4 +10,5 @@ export interface Slate {
   voyageId: string;
   donorUser: User;
   recipientUser: User;
+  date: Date;
 }

@@ -15,4 +15,13 @@ export default class Theme {
   // END_INNERSHADOW
   public static END_INNERSHADOW = {x: 0, y: 1}
 
+  // BLUE
+  public static BLUE_BG = '#4EB8D5';
+
+  // GREY TEXT
+  public static GREY_TEXT = '#A4A2A2';
+
+  // PURPLE
+  public static PURPLE = '#A95A9E';
+
 }

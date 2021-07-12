@@ -20,6 +20,7 @@ export const styles = StyleSheet.create({
     titles : {
         fontFamily: 'Montserrat-Bold',
         fontSize: 18,
+        paddingHorizontal: Theme.PAGE_PADDING_HORIZONTAL,
         marginBottom: 20
     },
     voyageView : {
@@ -47,7 +48,8 @@ export const styles = StyleSheet.create({
         elevation: 5,
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        marginHorizontal: Theme.PAGE_PADDING_HORIZONTAL
     },
     goBackButton : {
         alignItems: 'center',

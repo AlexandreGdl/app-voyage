@@ -7,4 +7,5 @@ export type RootStackParamList = {
   Voyage: { voyageId: string };
   Traveller: { voyageId: string };
   Widgets: { voyageId: string };
+  Slates: { voyageId: string };
 }

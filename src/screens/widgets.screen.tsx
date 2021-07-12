@@ -40,6 +40,7 @@ export type WidgetUI = {
   text: string;
   icon: JSX.Element;
   type: WidgetType;
+  link: keyof RootStackParamList;
 }
 
 export const defaultWidgets: Array<WidgetUI> = [
@@ -47,37 +48,43 @@ export const defaultWidgets: Array<WidgetUI> = [
     name: 'Agenda',
     type: WidgetType.AGENDA,
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non neque dolor. ',
-    icon: <AntDesign name='calendar' size={42}/>
+    icon: <AntDesign name='calendar' size={42}/>,
+    link: 'Home'
   },
   {
     name: 'Wallet',
     type: WidgetType.WALLET,
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non neque dolor. ',
-    icon: <Ionicons name='wallet-outline' size={42}/>
+    icon: <Ionicons name='wallet-outline' size={42}/>,
+    link: 'Home'
   },
   {
     name: 'Ardoise',
     type: WidgetType.ACCOUNT_CASH,
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non neque dolor. ',
-    icon: <MaterialCommunityIcons name="account-cash-outline" size={42}/>
+    icon: <MaterialCommunityIcons name="account-cash-outline" size={42}/>,
+    link: 'Slates'
   },
   {
     name: 'Décompte',
     type: WidgetType.COUNTDOWN,
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non neque dolor. ',
-    icon: <Ionicons name="ios-hourglass-outline" size={42} />
+    icon: <Ionicons name="ios-hourglass-outline" size={42} />,
+    link: 'Home'
   },
   {
     name: 'Notes partagées',
     type: WidgetType.NOTE,
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non neque dolor. ',
-    icon: <Ionicons name="ios-document-text-outline" size={42}/>
+    icon: <Ionicons name="ios-document-text-outline" size={42}/>,
+    link: 'Home'
   },
   {
     name: 'Map personnalisée',
     type: WidgetType.MAP,
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non neque dolor. ',
-    icon: <Feather name='map' size={42}/>
+    icon: <Feather name='map' size={42}/>,
+    link: 'Home'
   },
 ];
 

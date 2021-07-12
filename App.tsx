@@ -18,6 +18,7 @@ import { UserStore } from './src/user/store/user.store';
 import { useNavigation } from '@react-navigation/native';
 import BottomNavBarComponent from './src/components/bottom-navbar/bottom-navbar.component';
 import TravellerScreen from './src/screens/traveller.screen';
+import SlatesScreen from './src/screens/slates.screen';
 
 
 const StackNavigator = createStackNavigator<RootStackParamList>();
@@ -110,6 +111,7 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <StackNavigator.Screen name="Home" options={{ headerShown: false, animationEnabled: false }} component={HomeScreen} />
+          <StackNavigator.Screen name="Slates" options={{ headerShown: false }} component={SlatesScreen} />
           <StackNavigator.Screen name="Map" options={{ headerShown: false, animationEnabled: false }} component={MapScreen} />
           <StackNavigator.Screen name="Voyage" options={{ headerShown: false }} component={VoyageScreen} />
           <StackNavigator.Screen name="Traveller" options={{ headerShown: false }} component={TravellerScreen} />

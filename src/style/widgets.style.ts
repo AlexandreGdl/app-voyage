@@ -21,7 +21,8 @@ export const styles = StyleSheet.create({
     },
     goBackText : {
         color: 'grey',
-        fontFamily: 'Montserrat-Medium'
+        fontFamily: 'Montserrat-Medium',
+        fontSize: 16
     },
     explication : {
         fontFamily: 'Montserrat',

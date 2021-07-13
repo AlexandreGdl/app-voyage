@@ -101,9 +101,7 @@ const TravellerScreen: FunctionComponent<Props> = inject((stores: Record<string,
             {
               voyage && voyage.owner &&
               <View style={styles.travellersElement}>
-                <View key={voyage.owner._id} style={[styles.pictureProfile, voyage.owner._id === props.userStore._id && styles.me]}>
-                  <Text style={styles.textPictureProfile}>{voyage.owner.username.slice(0, 2).toUpperCase()}</Text>
-                </View>
+                <UserPictureProfile withMargin={false} user={voyage.owner} isActive={voyage.owner._id === props.userStore._id} />
                 <Text style={styles.username}>{voyage.owner.username.charAt(0).toUpperCase() + voyage.owner.username.slice(1).toLowerCase()}</Text>
               </View>
             }
@@ -111,14 +109,7 @@ const TravellerScreen: FunctionComponent<Props> = inject((stores: Record<string,
               voyage && voyage.members.slice(0, 4).map(member => {
                 return (
                   <View style={styles.travellersElement}>
-                    {
-                      member._id === props.userStore._id ?
-                      <UserPictureProfile isActive={true} user={member} />
-                    :
-                    <View key={member._id} style={styles.pictureProfile}>
-                      <Text style={styles.textPictureProfile}>{member.username.slice(0, 2).toUpperCase()}</Text>
-                    </View>
-                    }
+                    <UserPictureProfile isActive={member._id === props.userStore._id} user={member} withMargin={false} />
                     <Text style={styles.username}>{member.username.charAt(0).toUpperCase() + member.username.slice(1).toLowerCase()}</Text>
                   </View>
                 )

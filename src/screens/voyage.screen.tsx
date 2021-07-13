@@ -96,7 +96,7 @@ const VoyageScreen: FunctionComponent<Props> = inject((stores: Record<string, un
   
   return (
     <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
-      <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ flex: 1 }}>
         <ScrollView>
           <View style={styles.logoContainer}>
               <Image source={require('../../assets/plannit-1.png')} resizeMode='contain' style={styles.logo}/>
@@ -111,21 +111,13 @@ const VoyageScreen: FunctionComponent<Props> = inject((stores: Record<string, un
               <TouchableWithoutFeedback onPress={goToTravellers}  style={styles.wrapperListProfile}>
                 {
                   voyage && voyage.owner &&
-                  <View key={voyage.owner._id} style={[styles.pictureProfile, voyage.owner._id === props.userStore._id && styles.me]}>
-                    <Text style={styles.textPictureProfile}>{voyage.owner.username.slice(0, 2).toUpperCase()}</Text>
-                  </View>
+                  <UserPictureProfile withMargin={false} isActive={false} user={voyage.owner} />
+
                 }
                 {
-                  voyage && voyage.members.slice(0, 4).map(member => {
-                    return (
-                        member._id === props.userStore._id ?
-                        <UserPictureProfile isActive={true} user={member} />
-                      :
-                      <View key={member._id} style={styles.pictureProfile}>
-                        <Text style={styles.textPictureProfile}>{member.username.slice(0, 2).toUpperCase()}</Text>
-                      </View>
-                    )
-                  })
+                  voyage && voyage.members.slice(0, 4).map(member => (
+                      <UserPictureProfile withMargin={true} isActive={member._id === props.userStore._id} user={member} />
+                  ))
                 }
               </TouchableWithoutFeedback>
               <View style={styles.buttonPlus}>
@@ -156,7 +148,7 @@ const VoyageScreen: FunctionComponent<Props> = inject((stores: Record<string, un
           <BottomCardComponent open={cardOpen}>
             <AddTravellerComponent onActionEnd={closeCard} voyageId={props.route.params.voyageId} voyageStore={props.voyageStore} onVoyageCreated={closeCard} />
           </BottomCardComponent>
-      </SafeAreaView>
+      </View>
     </KeyboardAvoidingView>
   );
 }));

@@ -13,6 +13,7 @@ moment.locale('fr');
 type Props = {
   isActive: boolean;
   user: User;
+  withMargin: boolean;
 }
 
 const UserPictureProfile: FunctionComponent<Props> = (props) => {
@@ -21,7 +22,7 @@ const UserPictureProfile: FunctionComponent<Props> = (props) => {
       <LinearGradient
         colors={props.isActive ? ['#43BED8', '#A45FA1'] : ['transparent', 'transparent']}
         start={{x: 0.0, y: 1.0}} end={{x: 1.0, y: 1.0}}
-        style={styles.linearBorder}
+        style={[styles.linearBorder, props.withMargin && { marginLeft: -10 }]}
       >
         <View key={props.user._id} style={styles.pictureProfile}>
             <Text style={styles.textPictureProfile}>{props.user.username.slice(0, 2).toUpperCase()}</Text>
@@ -30,7 +31,7 @@ const UserPictureProfile: FunctionComponent<Props> = (props) => {
     )
   };
   return(
-    <View key={props.user._id} style={styles.pictureProfile}>
+    <View key={props.user._id} style={[styles.pictureProfile, props.withMargin && { marginLeft: -10 }]}>
       <Text style={styles.textPictureProfile}>{props.user.username.slice(0, 2).toUpperCase()}</Text>
     </View>
   )

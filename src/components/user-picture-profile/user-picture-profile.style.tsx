@@ -27,6 +27,5 @@ export const styles = StyleSheet.create({
         alignItems: 'center', 
         justifyContent: 'center', 
         borderRadius:82 / 2,
-        marginLeft: -10
     },
   });

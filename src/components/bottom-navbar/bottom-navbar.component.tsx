@@ -1,7 +1,7 @@
 // React
 import React, { FunctionComponent, useState } from 'react';
 // Tools
-import { Dimensions, StyleSheet, View, Text, LayoutChangeEvent } from 'react-native';
+import { Dimensions, StyleSheet, View, Text, LayoutChangeEvent, ViewStyle } from 'react-native';
 import { Entypo } from '@expo/vector-icons'; 
 
 import { SimpleLineIcons } from '@expo/vector-icons'; 
@@ -10,11 +10,11 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../root-stack-parameters-list';
 import Theme from '../../style/theme';
 import ButtonComponent from '../button.component';
-import AsyncStorage from '@react-native-community/async-storage';
 
 type Props = {
   navigation?: StackNavigationProp<RootStackParamList, keyof RootStackParamList>;
   onBtnPressed?: () => void;
+  style?: ViewStyle;
 }
 
 const styles = StyleSheet.create({
@@ -70,17 +70,17 @@ const BottomNavBarComponent: FunctionComponent<Props> = (props: Props) => {
     props.navigation?.replace('Home');
   }
 
+  function handleGoToProfile(): void {
+    props.navigation?.replace('Profile');
+  }
+
   function getButtonWidth(event: LayoutChangeEvent): void {
     const { layout } = event.nativeEvent;
     setButtonWidth(layout.width);
   }
 
-  function logout(): void {
-    AsyncStorage.removeItem('token');
-  }
-
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, props.style]}>
       <View style={styles.menu}>
         <TouchableOpacity onPress={handleGoToHome}>
           <SimpleLineIcons name="home" size={24} color="grey" /> 
@@ -93,7 +93,7 @@ const BottomNavBarComponent: FunctionComponent<Props> = (props: Props) => {
         <TouchableOpacity onPress={handleGoToMap}>
           <SimpleLineIcons name="map" size={24} color="grey" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={logout}>
+        <TouchableOpacity onPress={handleGoToProfile}>
           <SimpleLineIcons name="user" size={24} color="grey" />
         </TouchableOpacity>
       </View>

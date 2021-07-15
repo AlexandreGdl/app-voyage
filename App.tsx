@@ -21,6 +21,7 @@ import TravellerScreen from './src/screens/traveller.screen';
 import SlatesScreen from './src/screens/slates.screen';
 import ProfileScreen from './src/screens/profile.screen';
 
+import AddSlateScreen from './src/screens/add-slate.screen';
 
 const StackNavigator = createStackNavigator<RootStackParamList>();
 
@@ -118,6 +119,7 @@ export default function App() {
           <StackNavigator.Screen name="Voyage" options={{ headerShown: false }} component={VoyageScreen} />
           <StackNavigator.Screen name="Traveller" options={{ headerShown: false }} component={TravellerScreen} />
           <StackNavigator.Screen name="Widgets" options={{ headerShown: false }} component={WidgetsScreen} />
+          <StackNavigator.Screen name="AddSlate" options={{ headerShown: false }} component={AddSlateScreen} />
         </StackNavigator.Navigator>
 
       </NavigationContainer>

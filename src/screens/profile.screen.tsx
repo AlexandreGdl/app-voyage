@@ -15,7 +15,6 @@ import { RootStackParamList } from '../root-stack-parameters-list';
 import { styles } from '../style/profile.style';
 import { User } from '../user/interface/user.interface';
 import { UserStore } from '../user/store/user.store';
-import { Voyage } from '../voyage/interface/voyage.interface';
 import { VoyageStore } from '../voyage/store/voyage.store';
 import { CommonActions } from '@react-navigation/native';
 

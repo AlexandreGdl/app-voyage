@@ -15,7 +15,6 @@ type Props = {
   navigation?: StackNavigationProp<RootStackParamList, keyof RootStackParamList>;
   onBtnPressed?: () => void;
   style?: ViewStyle;
-  hideBtn?: boolean;
 }
 
 const styles = StyleSheet.create({
@@ -57,7 +56,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   }
-});
+}); 
 
 const BottomNavBarComponent: FunctionComponent<Props> = (props: Props) => {
 
@@ -89,8 +88,8 @@ const BottomNavBarComponent: FunctionComponent<Props> = (props: Props) => {
         <TouchableOpacity>
           <SimpleLineIcons name="fire" size={24} color="grey" />
         </TouchableOpacity>
-        {!props.hideBtn && <TouchableOpacity>
-        </TouchableOpacity>}
+        <TouchableOpacity>
+        </TouchableOpacity>
         <TouchableOpacity onPress={handleGoToMap}>
           <SimpleLineIcons name="map" size={24} color="grey" />
         </TouchableOpacity>
@@ -98,11 +97,11 @@ const BottomNavBarComponent: FunctionComponent<Props> = (props: Props) => {
           <SimpleLineIcons name="user" size={24} color="grey" />
         </TouchableOpacity>
       </View>
-      {!props.hideBtn && <View onLayout={getButtonWidth} style={[styles.buttonPlus, {left: (Dimensions.get('screen').width/2) - (buttonWidth/2)}]}>
+      <View onLayout={getButtonWidth} style={[styles.buttonPlus, {left: (Dimensions.get('screen').width/2) - (buttonWidth/2)}]}>
         <ButtonComponent onPress={props.onBtnPressed} gradient={Theme.PRIMARY_GRADIENT} childrenStyle={{padding: 15 }}>
           <Entypo name="plus" size={36} color="white" />
         </ButtonComponent>
-      </View>}
+      </View>
     </View>
   );
 }

@@ -6,7 +6,8 @@ import { Dimensions, StyleSheet, Animated, LayoutChangeEvent, View } from 'react
 type Props = {
   children?: ReactNode;
   open?: boolean;
-  bouncing? : boolean
+  bouncing? : boolean;
+  isHomePage?: boolean;
 }
 
 const BottomCardComponent: FunctionComponent<Props> = (props: Props) => {
@@ -41,7 +42,7 @@ const BottomCardComponent: FunctionComponent<Props> = (props: Props) => {
       translateY,
       {
         useNativeDriver: true,
-        toValue: -cardHeight,
+        toValue: -cardHeight + ( props.isHomePage ? 50 : 0),
         bounciness: props.bouncing ? 1 : 0
       }
     ).start();

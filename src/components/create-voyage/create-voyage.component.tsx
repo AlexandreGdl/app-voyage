@@ -1,9 +1,7 @@
 import { inject, observer } from 'mobx-react';
 import React, { FunctionComponent, useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, Alert } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import Emoji from 'react-native-emoji';
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { CitiesService } from '../../city/cities.service';
 import { City } from '../../city/interface/city.interface';
 import Theme from '../../style/theme';
@@ -74,9 +72,6 @@ const CreateVoyageComponent: FunctionComponent<Props> = (props: Props) => {
   const [endDate, setEndDate] = useState<Date>(new Date());
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [notFound, setNotFound] = useState<boolean>(false);
-  const [displayPicker, setDisplayPicker] = useState<boolean>(false);
-  const [startMode, setStartMode] = useState<boolean>(true);
-  const [dateError, setDateError] = useState<boolean>(false);
 
   async function findGoodCity(): Promise<void> {
     if (destination) {
@@ -92,11 +87,7 @@ const CreateVoyageComponent: FunctionComponent<Props> = (props: Props) => {
   }
 
   async function createVoyage(): Promise<void> {
-    if (startDate > endDate) {
-      setDateError(true);
-      console.log('toto');
-      return;
-    }
+
     if (destination && city && !notFound) {
       const newVoyage: CreateVoyageDto = {
         name: `${destination}, ${city.country}`,
@@ -119,27 +110,6 @@ const CreateVoyageComponent: FunctionComponent<Props> = (props: Props) => {
     }
   }
 
-  function handleDisplayDate(isStartingDay: boolean): void {
-    setDisplayPicker(!displayPicker);
-    setStartMode(isStartingDay);
-  }
-
-  function handleConfirm(date: Date): void {
-    if (startMode) {
-      setStartDate(date);
-    } else {
-      setEndDate(date);
-    }
-    setDisplayPicker(false);
-  }
-
-  function getMinimumDate(): Date {
-    if (!startMode) {
-      return startDate; 
-    }
-    return new Date();
-  }
-
   return (
     <View style={styles.container}>
       <Text style={styles.cardTitle}>Créer un nouveau voyage</Text>
@@ -153,7 +123,6 @@ const CreateVoyageComponent: FunctionComponent<Props> = (props: Props) => {
           containerStyle={styles.inputContainer}
           onChangeText={(text: string): void => setDestination(text)}
         />
-
         {city && !notFound && <Text style={styles.country}>
           Pays : {city.country} <Emoji name={`flag-${city.country.toLowerCase()}`} />
         </Text>}
@@ -162,27 +131,23 @@ const CreateVoyageComponent: FunctionComponent<Props> = (props: Props) => {
         </Text>}
       </View>
       <View style={styles.doubleInputContainer}>
-        <TouchableOpacity onPress={(): void => handleDisplayDate(true)}>
-          <View style={{ paddingBottom: 7, borderBottomColor: '#333', borderBottomWidth: 1.5, paddingRight: 5 }}>
-            <Text style={[styles.label, { marginBottom: 18 }]}>Date de départ</Text>
-            <Text style={[styles.reset, {maxWidth: 150, fontSize: 16 }]}>{startDate.toDateString()}</Text>
-          </View>
-        </TouchableOpacity>
+        <InputLabelComponent 
+          label='Date de départ'
+          placeholder='date de départ'
+          labelStyle={styles.label}
+          inputStyle={[styles.reset, {maxWidth: 100 }]}
+          value={startDate.toDateString()}
+          containerStyle={{ marginLeft: 0 }}
+        />
 
-        <TouchableOpacity onPress={(): void => handleDisplayDate(false)}>
-          <View style={{ paddingBottom: 7, borderBottomColor: '#333', borderBottomWidth: 1.5, paddingRight: 5 }}>
-            <Text style={[styles.label, { marginBottom: 18 }, dateError && { color: 'red' }]}>Date de fin</Text>
-            <Text style={[styles.reset, {maxWidth: 150, fontSize: 16 }, dateError && { color: 'red' }]}>{endDate.toDateString()}</Text>
-          </View>
-        </TouchableOpacity>
+        <InputLabelComponent 
+          label='Date de fin'
+          placeholder='date de fin'
+          labelStyle={styles.label}
+          inputStyle={[styles.reset, {maxWidth: 100 }]}
+          value={endDate.toDateString()}
+        />
       </View>
-      <DateTimePickerModal
-        isVisible={displayPicker}
-        mode="date"
-        minimumDate={getMinimumDate()}
-        onConfirm={handleConfirm}
-        onCancel={(): void => setDisplayPicker(false)}
-      />
       <ButtonComponent 
         text={city && city.name === destination ? 'Créer le voyage' : 'Trouver la ville'}
         onPress={city && city.name === destination ? createVoyage : findGoodCity}

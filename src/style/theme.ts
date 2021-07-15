@@ -24,7 +24,4 @@ export default class Theme {
   // PURPLE
   public static PURPLE = '#A95A9E';
 
-  // SLATE BTN BACKGROUND
-  public static SLATE_BTN_BG = '#3192AC';
-
 }

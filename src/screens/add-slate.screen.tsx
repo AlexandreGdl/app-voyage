@@ -61,7 +61,7 @@ const AddSlateScreen: FunctionComponent<Props> = inject((stores: Record<string, 
         <Text style={styles.widgetTitle}>Ardoise</Text>
         <View style={[styles.blueContainer, { backgroundColor: '#fff', paddingHorizontal: Theme.PAGE_PADDING_HORIZONTAL }]}>
           <View style={styles.containerTopGrey} />
-          <Text style={{ color: Theme.GREY_TEXT, fontSize: 16, fontFamily: 'Montserrat', fontWeight: '500', marginTop: 30, alignSelf: 'flex-start' }}>MONTANT</Text>
+          <Text style={styles.inputLabel}>MONTANT</Text>
           <TextInput style={{ borderWidth: 1, borderColor: '#F2EFEF', paddingHorizontal: 12, paddingVertical: 5, width: '100%', marginTop: 15 }} />
         </View>
       </ScrollView>

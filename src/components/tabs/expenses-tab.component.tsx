@@ -59,7 +59,7 @@ const ExpensesTab: React.FunctionComponent<Props> = (props: Props) => {
             {/* Slate Amount */}
             <Text style={styles.slatePrice}>{slate.amount}€</Text>
           </View>
-        ))}
+        ))} 
       </View>
     </View>
   )

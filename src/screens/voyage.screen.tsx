@@ -116,7 +116,7 @@ const VoyageScreen: FunctionComponent<Props> = inject((stores: Record<string, un
               <TouchableWithoutFeedback onPress={goToTravellers}  style={styles.wrapperListProfile}>
                 {
                   voyage && voyage.owner &&
-                  <UserPictureProfile withMargin={false} isActive={false} user={voyage.owner} />
+                  <UserPictureProfile withMargin={false} isActive={voyage.owner._id === props.userStore._id} user={voyage.owner} />
 
                 }
                 {

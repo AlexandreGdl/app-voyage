@@ -110,5 +110,22 @@ export const styles = StyleSheet.create({
 		color: Theme.PURPLE, 
 		fontSize: 21, 
 		fontFamily: 'Montserrat-Bold' 
+	},
+	headerBtn: { 
+		fontSize: 16, 
+		color: 'white', 
+		fontFamily: 'Montserrat-Bold' 
+	},
+	headerBtnItem: { 
+		borderRadius: 50, 
+		paddingHorizontal: 16, 
+		paddingVertical: 6 
+	},
+	btnContainer: { 
+		flexDirection: 'row', 
+		alignItems: 'center', 
+		justifyContent: 'space-between', 
+		width: '90%', 
+		marginBottom: 22 
 	}
 });

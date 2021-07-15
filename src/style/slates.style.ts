@@ -49,7 +49,15 @@ export const styles = StyleSheet.create({
 		backgroundColor: Theme.BLUE_BG, 
 		minHeight: Dimensions.get('screen').height, 
 		width: Dimensions.get('screen').width, 
-		paddingVertical: 20
+		paddingVertical: 20,
+		shadowColor: "#000", 
+		shadowOffset: {
+				width: 0,
+				height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+		elevation: 5,
 	},
 	headerBox: {
 		shadowColor: "#000", 
@@ -110,5 +118,57 @@ export const styles = StyleSheet.create({
 		color: Theme.PURPLE, 
 		fontSize: 21, 
 		fontFamily: 'Montserrat-Bold' 
+	},
+	headerBtn: { 
+		fontSize: 16, 
+		color: 'white', 
+		fontFamily: 'Montserrat-Bold' 
+	},
+	headerBtnItem: { 
+		borderRadius: 50, 
+		paddingHorizontal: 16, 
+		paddingVertical: 6 
+	},
+	btnContainer: { 
+		flexDirection: 'row', 
+		alignItems: 'center', 
+		justifyContent: 'space-between', 
+		width: '90%', 
+		marginBottom: 22 
+	},
+	btnAddExpenses: {
+		position: 'absolute',
+		bottom: 50,
+		right: 10,
+    alignItems: 'center', 
+    transform: [{translateY: -50}],
+    shadowColor: "#000", 
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+	},
+	widgetTitle: { 
+		fontSize: 20, 
+		fontFamily: 'Montserrat-Bold', 
+		textAlign: 'center', 
+		marginBottom: 20 
+	},
+	containerTopGrey: {
+		width: '30%', 
+		backgroundColor: '#F0F0F0', 
+		height: 5, 
+		borderRadius: 50
+	},
+	inputLabel: { 
+		color: Theme.GREY_TEXT, 
+		fontSize: 16, 
+		fontFamily: 'Montserrat', 
+		fontWeight: '500', 
+		marginTop: 30, 
+		alignSelf: 'flex-start' 
 	}
 });

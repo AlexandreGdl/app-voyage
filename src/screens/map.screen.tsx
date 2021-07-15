@@ -10,7 +10,7 @@ import BottomNavBarComponent from '../components/bottom-navbar/bottom-navbar.com
 import { RootStackParamList } from '../root-stack-parameters-list';
 // Styles
 import { styles } from '../style/map.style';
-import TypesIcon, { IconTypeEnum } from '../components/types-icon/types-icon.component';
+import TypesIcon from '../components/types-icon/types-icon.component';
 import { PlaceService } from '../place/service/place.service';
 import { Place } from '../place/interface/place.interface';
 import { PlaceStore } from '../place/store/place.store';
@@ -37,13 +37,12 @@ const MapScreen: FunctionComponent<Props> = inject((stores: Record<string, unkno
 
   return (
     <SafeAreaView style={styles.container}>
-      <MapView style={styles.map} initialRegion={INITIAL_REGION}>
+      <MapView showsUserLocation showsPointsOfInterest={false} style={styles.map} initialRegion={INITIAL_REGION}>
         {props.placeStore.globalPlaces.map((place: Place, index: number) =>
           place.position && 
-          <Marker key={index} coordinate={{ latitude: place.position.lat, longitude: place.position.long }}>
-            <Text>{place.name}</Text>
-            {console.log('rendered at', place.position)}
-            <TypesIcon iconName="add" name={IconTypeEnum.RESTAURANT} />
+          <Marker title={place.name} key={index} coordinate={{ latitude: place.position.lat, longitude: place.position.long }}>
+            {console.log('rendered at', props.placeStore.globalPlaces)}
+            <TypesIcon name={place.type.name} />
           </Marker>
         )}
       </MapView>

@@ -90,7 +90,7 @@ const HomeScreen: FunctionComponent<Props> = inject((stores: Record<string, unkn
           
         {cardOpen && <Animated.View onTouchEnd={closeCard} style={[styles.darkBackground, { opacity: fadeAnim }]}>
           </Animated.View>}
-        <BottomCardComponent open={cardOpen}>
+        <BottomCardComponent isHomePage open={cardOpen}>
           <CreateVoyageComponent voyageStore={props.voyageStore} onVoyageCreated={closeCard} />
         </BottomCardComponent>
       </SafeAreaView>

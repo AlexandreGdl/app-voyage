@@ -47,6 +47,7 @@ export const styles = StyleSheet.create({
         fontSize: 18,
         fontFamily: 'Montserrat-Bold',
         color: 'white',
+        paddingVertical: 10
     },
     title: {
         fontSize: 18,

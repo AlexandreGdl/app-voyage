@@ -16,7 +16,7 @@ import { VoyageStore } from './src/voyage/store/voyage.store';
 import { UserService } from './src/user/service/user.service';
 import { UserStore } from './src/user/store/user.store';
 import SlatesScreen from './src/screens/slates.screen';
-
+import AddSlateScreen from './src/screens/add-slate.screen';
 
 const StackNavigator = createStackNavigator<RootStackParamList>();
 
@@ -112,6 +112,7 @@ export default function App() {
           <StackNavigator.Screen name="Map" options={{ headerShown: false, animationEnabled: false }} component={MapScreen} />
           <StackNavigator.Screen name="Voyage" options={{ headerShown: false }} component={VoyageScreen} />
           <StackNavigator.Screen name="Widgets" options={{ headerShown: false }} component={WidgetsScreen} />
+          <StackNavigator.Screen name="AddSlate" options={{ headerShown: false }} component={AddSlateScreen} />
         </StackNavigator.Navigator>
       </NavigationContainer>
     </Provider>

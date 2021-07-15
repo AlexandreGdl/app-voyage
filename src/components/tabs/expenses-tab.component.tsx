@@ -37,7 +37,7 @@ const ExpensesTab: React.FunctionComponent<Props> = (props: Props) => {
     }
     return amount;
   }
-
+  
   return (
     <View style={{ width: '100%', alignItems: 'center' }}>
       <View style={styles.headerBox}>

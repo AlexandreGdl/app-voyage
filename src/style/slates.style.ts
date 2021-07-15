@@ -49,7 +49,15 @@ export const styles = StyleSheet.create({
 		backgroundColor: Theme.BLUE_BG, 
 		minHeight: Dimensions.get('screen').height, 
 		width: Dimensions.get('screen').width, 
-		paddingVertical: 20
+		paddingVertical: 20,
+		shadowColor: "#000", 
+		shadowOffset: {
+				width: 0,
+				height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+		elevation: 5,
 	},
 	headerBox: {
 		shadowColor: "#000", 
@@ -127,5 +135,20 @@ export const styles = StyleSheet.create({
 		justifyContent: 'space-between', 
 		width: '90%', 
 		marginBottom: 22 
+	},
+	btnAddExpenses: {
+		position: 'absolute',
+		bottom: 50,
+		right: 10,
+    alignItems: 'center', 
+    transform: [{translateY: -50}],
+    shadowColor: "#000", 
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
 	}
 });

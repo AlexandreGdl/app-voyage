@@ -15,6 +15,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, keyof RootStackParamList>;
   onBtnPressed?: () => void;
+  hideBtn?: boolean;
 }
 
 const styles = StyleSheet.create({
@@ -88,8 +89,8 @@ const BottomNavBarComponent: FunctionComponent<Props> = (props: Props) => {
         <TouchableOpacity>
           <SimpleLineIcons name="fire" size={24} color="grey" />
         </TouchableOpacity>
-        <TouchableOpacity>
-        </TouchableOpacity>
+        {!props.hideBtn && <TouchableOpacity>
+        </TouchableOpacity>}
         <TouchableOpacity onPress={handleGoToMap}>
           <SimpleLineIcons name="map" size={24} color="grey" />
         </TouchableOpacity>
@@ -97,11 +98,11 @@ const BottomNavBarComponent: FunctionComponent<Props> = (props: Props) => {
           <SimpleLineIcons name="user" size={24} color="grey" />
         </TouchableOpacity>
       </View>
-      <View onLayout={getButtonWidth} style={[styles.buttonPlus, {left: (Dimensions.get('screen').width/2) - (buttonWidth/2)}]}>
+      {!props.hideBtn && <View onLayout={getButtonWidth} style={[styles.buttonPlus, {left: (Dimensions.get('screen').width/2) - (buttonWidth/2)}]}>
         <ButtonComponent onPress={props.onBtnPressed} gradient={Theme.PRIMARY_GRADIENT} childrenStyle={{padding: 15 }}>
           <Entypo name="plus" size={36} color="white" />
         </ButtonComponent>
-      </View>
+      </View>}
     </View>
   );
 }

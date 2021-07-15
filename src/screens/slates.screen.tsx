@@ -17,6 +17,8 @@ import { Slate } from '../slate/interface/slate.interface';
 import Theme from '../style/theme';
 import { UserStore } from '../user/store/user.store';
 import ExpensesTab from '../components/tabs/expenses-tab.component';
+import ButtonComponent from '../components/button.component';
+import BottomNavBarComponent from '../components/bottom-navbar/bottom-navbar.component';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Slates'>;
@@ -52,6 +54,10 @@ const SlatesScreen: FunctionComponent<Props> = inject((stores: Record<string, un
     }
   }
 
+  function addSlate(): void {
+    props.navigation.navigate('AddSlate', { voyageId: props.route.params.voyageId });
+  }
+
   useEffect(() => {
     getVoyageFromStore();
   }, [props.voyageStore.usersVoyage]);
@@ -66,6 +72,7 @@ const SlatesScreen: FunctionComponent<Props> = inject((stores: Record<string, un
           <Entypo name="chevron-left" size={36} color="grey" />
           <Text style={styles.goBackText}>Retour</Text>
         </TouchableOpacity>
+        <Text style={{ fontSize: 20, fontFamily: 'Montserrat-Bold', textAlign: 'center', marginBottom: 20 }}>Ardoise</Text>
         <View style={styles.blueContainer}>
           <View style={styles.btnContainer}>
             <TouchableOpacity style={{ marginHorizontal: 5 }} onPress={(): void => setActiveTab(Tab.EXPENSES)}>
@@ -87,9 +94,15 @@ const SlatesScreen: FunctionComponent<Props> = inject((stores: Record<string, un
           {activeTab === Tab.EXPENSES && <ExpensesTab voyage={voyage} userStore={props.userStore} />}
           {activeTab === Tab.BALANCE && <ExpensesTab voyage={voyage} userStore={props.userStore} />}
           {activeTab === Tab.TRAVELLERS && <ExpensesTab voyage={voyage} userStore={props.userStore} />}
-
         </View>
       </ScrollView>
+      {activeTab === Tab.EXPENSES && 
+      <View style={styles.btnAddExpenses}>
+        <ButtonComponent onPress={addSlate} gradient={Theme.PRIMARY_GRADIENT} childrenStyle={{padding: 15 }}>
+          <Entypo name="plus" size={36} color="white" />
+        </ButtonComponent>
+      </View>}
+      <BottomNavBarComponent hideBtn={true} navigation={props.navigation} />
     </View>
   );
 }));

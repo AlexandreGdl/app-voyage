@@ -139,6 +139,7 @@ const VoyageScreen: FunctionComponent<Props> = inject((stores: Record<string, un
         <BottomCardComponent open={cardOpen}>
           <AddTravellerComponent onActionEnd={closeCard} voyageId={props.route.params.voyageId} voyageStore={props.voyageStore} onVoyageCreated={closeCard} />
         </BottomCardComponent>
+        <BottomNavBarComponent hideBtn navigation={props.navigation} />
     </View>
   );
 }));

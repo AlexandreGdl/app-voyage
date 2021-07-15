@@ -59,7 +59,7 @@ const HomeScreen: FunctionComponent<Props> = inject((stores: Record<string, unkn
 
   return (
     <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, transform: [{translateY: -50}]}}>
         <ScrollView>
           <ImageBackground source={require('../../assets/Photo-3.jpg')} imageStyle={styles.imgBorderRadius} style={styles.imgBg}>
             <Image source={require('../../assets/Plannit-logo-blanc.png')} resizeMode='contain' style={styles.logo}/>
@@ -86,7 +86,7 @@ const HomeScreen: FunctionComponent<Props> = inject((stores: Record<string, unkn
             </ScrollView>
           </View>
         </ScrollView>
-        <BottomNavBarComponent navigation={props.navigation} onBtnPressed={openCard} />
+        <BottomNavBarComponent navigation={props.navigation} onBtnPressed={openCard} style={{transform: [{translateY: 50}]}}/>
           
         {cardOpen && <Animated.View onTouchEnd={closeCard} style={[styles.darkBackground, { opacity: fadeAnim }]}>
           </Animated.View>}

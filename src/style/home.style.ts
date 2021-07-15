@@ -42,8 +42,9 @@ export const styles = StyleSheet.create({
 
   textVoyage : {
       fontFamily: 'Montserrat-Bold',
-      paddingTop: 40,
-      paddingBottom: 10,
+      fontSize: 18,
+      marginTop: 40,
+      marginBottom: 15,
       paddingLeft: Theme.PAGE_PADDING_HORIZONTAL
   },
   subtitle :{

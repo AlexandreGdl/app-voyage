@@ -1,13 +1,15 @@
 // React
 import React, { FunctionComponent, ReactNode, useEffect, useRef, useState } from 'react';
 // Tools
-import { Dimensions, StyleSheet, Animated, LayoutChangeEvent, View } from 'react-native'
+import { Dimensions, StyleSheet, Animated, LayoutChangeEvent, View, GestureResponderEvent, PanResponderGestureState, PanResponder } from 'react-native'
 
 type Props = {
   children?: ReactNode;
   open?: boolean;
   bouncing? : boolean;
   isHomePage?: boolean;
+  withShadow?: boolean;
+  closeCard?(): void;
 }
 
 const BottomCardComponent: FunctionComponent<Props> = (props: Props) => {
@@ -27,6 +29,23 @@ const BottomCardComponent: FunctionComponent<Props> = (props: Props) => {
       alignItems: 'center',
       borderTopLeftRadius: 20,
       borderTopRightRadius: 20,
+    },
+    shadow: {
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 7,
+      },
+      shadowOpacity: 0.43,
+      shadowRadius: 9.51,
+
+      elevation: 15,
+    },
+    wrapper: {
+      width: '100%',
+      paddingVertical: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     draggable: { 
       marginVertical: 10, 
@@ -63,6 +82,19 @@ const BottomCardComponent: FunctionComponent<Props> = (props: Props) => {
     setCardHeight(layout.height);
   }
 
+  function handleRelease (evt: GestureResponderEvent, gestureState: PanResponderGestureState) {
+    if (props.closeCard) {
+      if(gestureState.dy > 30) props.closeCard();
+    }
+  } 
+
+  const panResponsder = React.useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderRelease: (evt, gestureState) => handleRelease(evt, gestureState)
+    })
+  )
+
   useEffect(() => {
     if (props.open) {
       openBottomCard();
@@ -72,8 +104,10 @@ const BottomCardComponent: FunctionComponent<Props> = (props: Props) => {
   }, [props.open]);
 
   return (
-    <Animated.View onLayout={onLayout} style={[styles.container, { transform: [{ translateY }]}]}>
-      <View style={styles.draggable} />
+    <Animated.View onLayout={onLayout} style={[styles.container, props.withShadow && styles.shadow, { transform: [{ translateY }]}]}>
+      <Animated.View {...panResponsder.current.panHandlers} style={styles.wrapper}>
+        <View style={styles.draggable} />
+      </Animated.View>
       {props.children}
     </Animated.View>
   );

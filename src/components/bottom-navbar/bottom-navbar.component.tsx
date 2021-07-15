@@ -1,7 +1,7 @@
 // React
 import React, { FunctionComponent, useState } from 'react';
 // Tools
-import { Dimensions, StyleSheet, View, Text, LayoutChangeEvent, ViewStyle } from 'react-native';
+import { Dimensions, StyleSheet, View, Text, LayoutChangeEvent, ViewStyle, Alert } from 'react-native';
 import { Entypo } from '@expo/vector-icons'; 
 
 import { SimpleLineIcons } from '@expo/vector-icons'; 
@@ -16,6 +16,7 @@ type Props = {
   onBtnPressed?: () => void;
   style?: ViewStyle;
   hideBtn?: boolean;
+  customIcon?: JSX.Element;
 }
 
 const styles = StyleSheet.create({
@@ -86,7 +87,7 @@ const BottomNavBarComponent: FunctionComponent<Props> = (props: Props) => {
         <TouchableOpacity onPress={handleGoToHome}>
           <SimpleLineIcons name="home" size={24} color="grey" /> 
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => Alert.alert('Accès refusé', 'Désolé, cette page n\'est pas accessible !')}>
           <SimpleLineIcons name="fire" size={24} color="grey" />
         </TouchableOpacity>
         {!props.hideBtn && <TouchableOpacity>
@@ -100,7 +101,11 @@ const BottomNavBarComponent: FunctionComponent<Props> = (props: Props) => {
       </View>
       {!props.hideBtn && <View onLayout={getButtonWidth} style={[styles.buttonPlus, {left: (Dimensions.get('screen').width/2) - (buttonWidth/2)}]}>
         <ButtonComponent onPress={props.onBtnPressed} gradient={Theme.PRIMARY_GRADIENT} childrenStyle={{padding: 15 }}>
-          <Entypo name="plus" size={36} color="white" />
+          {props.customIcon ?
+            props.customIcon
+            :
+          <Entypo name="plus" size={36} color="white" />          
+          }
         </ButtonComponent>
       </View>}
     </View>

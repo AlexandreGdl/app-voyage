@@ -72,7 +72,7 @@ const SlatesScreen: FunctionComponent<Props> = inject((stores: Record<string, un
           <Entypo name="chevron-left" size={36} color="grey" />
           <Text style={styles.goBackText}>Retour</Text>
         </TouchableOpacity>
-        <Text style={{ fontSize: 20, fontFamily: 'Montserrat-Bold', textAlign: 'center', marginBottom: 20 }}>Ardoise</Text>
+        <Text style={styles.widgetTitle}>Ardoise</Text>
         <View style={styles.blueContainer}>
           <View style={styles.btnContainer}>
             <TouchableOpacity style={{ marginHorizontal: 5 }} onPress={(): void => setActiveTab(Tab.EXPENSES)}>

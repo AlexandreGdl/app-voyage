@@ -150,5 +150,25 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+	},
+	widgetTitle: { 
+		fontSize: 20, 
+		fontFamily: 'Montserrat-Bold', 
+		textAlign: 'center', 
+		marginBottom: 20 
+	},
+	containerTopGrey: {
+		width: '30%', 
+		backgroundColor: '#F0F0F0', 
+		height: 5, 
+		borderRadius: 50
+	},
+	inputLabel: { 
+		color: Theme.GREY_TEXT, 
+		fontSize: 16, 
+		fontFamily: 'Montserrat', 
+		fontWeight: '500', 
+		marginTop: 30, 
+		alignSelf: 'flex-start' 
 	}
 });

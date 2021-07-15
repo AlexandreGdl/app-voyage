@@ -14,6 +14,8 @@ import { Voyage } from '../voyage/interface/voyage.interface';
 import { VoyageObject } from '../voyage/object/voyage.object';
 import { RouteProp } from '@react-navigation/core';
 import { UserStore } from '../user/store/user.store';
+import Theme from '../style/theme';
+import { TextInput } from 'react-native-gesture-handler';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Slates'>;
@@ -56,9 +58,11 @@ const AddSlateScreen: FunctionComponent<Props> = inject((stores: Record<string, 
           <Entypo name="chevron-left" size={36} color="grey" />
           <Text style={styles.goBackText}>Retour</Text>
         </TouchableOpacity>
-        <Text style={{ fontSize: 20, fontFamily: 'Montserrat-Bold', textAlign: 'center', marginBottom: 20 }}>Ardoise</Text>
-        <View style={[styles.blueContainer, { backgroundColor: '#fff' }]}>
-
+        <Text style={styles.widgetTitle}>Ardoise</Text>
+        <View style={[styles.blueContainer, { backgroundColor: '#fff', paddingHorizontal: Theme.PAGE_PADDING_HORIZONTAL }]}>
+          <View style={styles.containerTopGrey} />
+          <Text style={{ color: Theme.GREY_TEXT, fontSize: 16, fontFamily: 'Montserrat', fontWeight: '500', marginTop: 30, alignSelf: 'flex-start' }}>MONTANT</Text>
+          <TextInput style={{ borderWidth: 1, borderColor: '#F2EFEF', paddingHorizontal: 12, paddingVertical: 5, width: '100%', marginTop: 15 }} />
         </View>
       </ScrollView>
     </View>

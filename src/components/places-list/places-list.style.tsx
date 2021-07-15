@@ -5,6 +5,7 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: Dimensions.get('screen').width,
+        paddingVertical: Theme.PAGE_PADDING_HORIZONTAL
     },
     logo: {
         width: 100,

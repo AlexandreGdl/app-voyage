@@ -19,6 +19,7 @@ import { UserStore } from '../user/store/user.store';
 import ExpensesTab from '../components/tabs/expenses-tab.component';
 import ButtonComponent from '../components/button.component';
 import BottomNavBarComponent from '../components/bottom-navbar/bottom-navbar.component';
+import BalanceTab from '../components/tabs/balance-tab.component';
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Slates'>;
@@ -92,7 +93,7 @@ const SlatesScreen: FunctionComponent<Props> = inject((stores: Record<string, un
             </TouchableOpacity>
           </View>
           {activeTab === Tab.EXPENSES && <ExpensesTab voyage={voyage} userStore={props.userStore} />}
-          {activeTab === Tab.BALANCE && <ExpensesTab voyage={voyage} userStore={props.userStore} />}
+          {activeTab === Tab.BALANCE && <BalanceTab voyage={voyage} userStore={props.userStore} />}
           {activeTab === Tab.TRAVELLERS && <ExpensesTab voyage={voyage} userStore={props.userStore} />}
         </View>
       </ScrollView>

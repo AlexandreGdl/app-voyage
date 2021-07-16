@@ -117,7 +117,6 @@ const VoyageScreen: FunctionComponent<Props> = inject((stores: Record<string, un
                 {
                   voyage && voyage.owner &&
                   <UserPictureProfile withMargin={false} isActive={false} user={voyage.owner} />
-
                 }
                 {
                   voyage && voyage.members.slice(0, 4).map(member => (

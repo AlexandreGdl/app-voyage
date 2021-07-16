@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
 	},
 	container: {
 		flex: 1,
-		flexDirection: 'column'
+		flexDirection: 'column',
 	},
 	greyText: { 
 		fontWeight: '500', 
@@ -170,5 +170,65 @@ export const styles = StyleSheet.create({
 		fontWeight: '500', 
 		marginTop: 30, 
 		alignSelf: 'flex-start' 
+	},
+	input: { 
+		borderWidth: 2, 
+		borderColor: '#F2EFEF', 
+		paddingHorizontal: 12, 
+		paddingVertical: 5, 
+		width: '100%', 
+		marginTop: 15 
+	},
+	selectAll: { 
+		width: '90%', 
+		marginTop: 5 
+	},
+	selectAllContainer: { 
+		width: '100%', 
+		justifyContent: 'space-between', 
+		flexDirection: 'row', 
+		alignItems: 'center'
+	},
+	customLabel: { 
+		alignSelf: 'auto', 
+		marginTop: 0, 
+		color: '#333' 
+	},
+	iconContainer: { 
+		width: 40, 
+		height: 40, 
+		borderColor: '#333',
+		borderRadius: 50, 
+		justifyContent: 'center', 
+		alignItems: 'center',
+	},
+	limiter: { 
+		width: '90%', 
+		height: 2, 
+		backgroundColor: '#F0F0F0', 
+		marginTop: 10 
+	},
+	itemContainer: { 
+		width: '100%', 
+		flexDirection: 'row', 
+		alignItems: 'center', 
+		justifyContent: 'space-between',
+		marginBottom: 20
+	},
+	icon: { 
+		backgroundColor: '#dedede',
+		borderRadius: 50, 
+		width: 45, 
+		height: 45, 
+		justifyContent: 'center', 
+		alignItems: 'center' ,
+		shadowColor: "#000", 
+		shadowOffset: {
+			width: 0,
+			height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+		elevation: 5,
 	}
 });

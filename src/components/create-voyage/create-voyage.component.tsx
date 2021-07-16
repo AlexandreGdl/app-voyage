@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   container: { 
     width: Dimensions.get('screen').width, 
     paddingBottom: 30, 
-    paddingHorizontal: 24 
+    paddingHorizontal: Theme.PAGE_PADDING_HORIZONTAL 
   },
   cardTitle: { 
     textAlign: 'center', 

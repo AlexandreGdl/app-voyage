@@ -3,6 +3,9 @@ export default class Theme {
   // PAGE PADDING HORIZONTAL
   public static PAGE_PADDING_HORIZONTAL = 24;
 
+  // PAGE MARGIN HORIZONTAL
+  public static PAGE_MARGIN_HORIZONTAL = 24;
+
   // PRIMARY GRADIENT PINK TO BLUE
   public static PRIMARY_GRADIENT = ['#47bed8', '#ab5099'];
 

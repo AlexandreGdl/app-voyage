@@ -104,6 +104,7 @@ export default function App() {
       widgetStore={ widgetStore }
       voyageStore={ voyageStore }
       userStore={ userStore }
+      text='toto'
     >
       <NavigationContainer>
         <StackNavigator.Navigator initialRouteName={getInitialRouteName()}>

@@ -26,6 +26,7 @@ type Props = {
   userStore: UserStore;
 }
 
+
 const ProfileScreen: FunctionComponent<Props> = inject((stores: Record<string, unknown>) => ({
   voyageStore: stores.voyageStore as VoyageStore,
   userStore: stores.userStore as UserStore,

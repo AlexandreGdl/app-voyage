@@ -5,6 +5,7 @@ import { Slate } from "../../slate/interface/slate.interface";
 import { styles } from "../../style/slates.style";
 import { UserStore } from "../../user/store/user.store";
 import { Voyage } from "../../voyage/interface/voyage.interface";
+import Theme from "../../style/theme";
 
 moment.locale('fr');
 
@@ -16,8 +17,8 @@ type Props = {
 const BalanceTab: React.FunctionComponent<Props> = (props: Props) => {
   
   return (
-    <View style={{ width: '100%', alignItems: 'center' }}>
-      <Text style={styles.inputLabel}>FAISONS LES COMPTES ...</Text>
+    <View style={{ width: '100%', alignItems: 'center', paddingHorizontal: Theme.PAGE_PADDING_HORIZONTAL }}>
+      <Text style={[styles.inputLabel, { color: 'white' }]}>FAISONS LES COMPTES ...</Text>
     </View>
   )
 }

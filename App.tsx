@@ -22,7 +22,7 @@ import SlatesScreen from './src/screens/slates.screen';
 import ProfileScreen from './src/screens/profile.screen';
 import AddSlateScreen from './src/screens/add-slate.screen';
 import {LogBox} from 'react-native';
-LogBox.ignoreLogs(['...']);
+LogBox.ignoreAllLogs(true);
 
 const StackNavigator = createStackNavigator<RootStackParamList>();
 
@@ -71,7 +71,7 @@ export default function App() {
 
     if (token) {
       const user = await UserService.getInstance().getUserConnected();
-      if (user) {
+      if (user && user._id) {
         userStore.initUser(user);
         setIsLoggedIn(true);
       }

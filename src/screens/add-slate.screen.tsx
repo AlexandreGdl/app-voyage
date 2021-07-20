@@ -99,7 +99,7 @@ const AddSlateScreen: FunctionComponent<Props> = inject((stores: Record<string, 
       };
 
       await SlateService.getInstance().createSlate(createSlateDto);
-
+      await props.voyageStore.fetchAllVoyage();
       props.navigation.goBack();
     }
   }

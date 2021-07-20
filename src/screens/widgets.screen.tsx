@@ -142,7 +142,7 @@ const WidgetScreen: FunctionComponent<Props> = inject((stores: Record<string, un
                       key={defaultWidget.name} 
                       style={[styles.widgetCard, voyage && voyage.activeWidgets.filter((value: Widget) => value.name === defaultWidget.type)[0] && { borderColor: 'black', borderWidth: 1 }]}
                     >
-                      <FeatureCard style={styles.widgetCardImage}>
+                      <FeatureCard onPress={(): Promise<void> => handleWidgetPressed(defaultWidget.type) } style={styles.widgetCardImage}>
                           {defaultWidget.icon}
                       </FeatureCard>
                       <View style={styles.widgetContainerText}>

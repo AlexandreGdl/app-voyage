@@ -144,7 +144,7 @@ const VoyageScreen: FunctionComponent<Props> = inject((stores: Record<string, un
               <Entypo name="plus" size={36} color="white" />
             </FeatureCard>
             {voyage && voyage.activeWidgets.map((widget: Widget) => (
-                <FeatureCard onPress={(): void => goToOneWidgets(widget)} textStyle={{color: 'black'}} text={widget.name} gradient={['#fff', '#fff']}>
+                <FeatureCard onPress={(): void => goToOneWidgets(widget)} textStyle={{color: 'black'}} text={defaultWidgets.filter((defaultWidget) => defaultWidget.type === widget.name)[0].name} gradient={['#fff', '#fff']}>
                   {generateIcon(widget.name)}
                 </FeatureCard>
               ))}

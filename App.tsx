@@ -21,7 +21,8 @@ import TravellerScreen from './src/screens/traveller.screen';
 import SlatesScreen from './src/screens/slates.screen';
 import ProfileScreen from './src/screens/profile.screen';
 import AddSlateScreen from './src/screens/add-slate.screen';
-
+import {LogBox} from 'react-native';
+LogBox.ignoreLogs(['...']);
 
 const StackNavigator = createStackNavigator<RootStackParamList>();
 

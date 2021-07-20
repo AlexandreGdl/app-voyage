@@ -98,7 +98,14 @@ const AuthScreen: FunctionComponent<Props> = inject((stores: Record<string, unkn
       const token = await UserService.getInstance().signup({email, password, phoneNumber, username});
       if (token && token.token) {
         await AsyncStorage.setItem('token', token.token.toString());
+        const user = await UserService.getInstance().getUserConnected();
+        if (user) {
+          props.userStore.initUser(user);
+        }
         closeForm();
+        if ( user ) {
+          props.navigation.replace('Home')
+        }
       }
     }
   }

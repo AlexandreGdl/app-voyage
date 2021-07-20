@@ -69,7 +69,7 @@ const ProfileScreen: FunctionComponent<Props> = inject((stores: Record<string, u
             <View style={{ flex: 1 }}>
             <Text style={styles.textVoyage}>Vos voyages</Text>
             {
-                props.voyageStore.usersVoyage.length === 0 && <Text style={styles.subtitle}>Pour créer un voyage, utiliser le bouton plus en bas de votre écran.</Text>
+                props.voyageStore.usersVoyage.length === 0 && <Text style={styles.subtitle}>Retrouvez ici la liste de vos voyages en cours.</Text>
             }
             <ScrollView showsHorizontalScrollIndicator={false} contentContainerStyle={styles.cardContainer} horizontal>
               {
@@ -88,7 +88,7 @@ const ProfileScreen: FunctionComponent<Props> = inject((stores: Record<string, u
           </View>
         </View>
       </ScrollView>
-      <BottomNavBarComponent navigation={props.navigation}/>
+      <BottomNavBarComponent hideBtn navigation={props.navigation}/>
     </View>
   );
 }));

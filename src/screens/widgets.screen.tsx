@@ -40,7 +40,7 @@ export type WidgetUI = {
   text: string;
   icon: JSX.Element;
   type: WidgetType;
-  link: keyof RootStackParamList;
+  link: keyof RootStackParamList | null;
 }
 
 export const defaultWidgets: Array<WidgetUI> = [
@@ -49,14 +49,14 @@ export const defaultWidgets: Array<WidgetUI> = [
     type: WidgetType.AGENDA,
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non neque dolor. ',
     icon: <AntDesign name='calendar' size={42}/>,
-    link: 'Home'
+    link: null
   },
   {
     name: 'Wallet',
     type: WidgetType.WALLET,
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non neque dolor. ',
     icon: <Ionicons name='wallet-outline' size={42}/>,
-    link: 'Home'
+    link: null
   },
   {
     name: 'Ardoise',
@@ -70,21 +70,21 @@ export const defaultWidgets: Array<WidgetUI> = [
     type: WidgetType.COUNTDOWN,
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non neque dolor. ',
     icon: <Ionicons name="ios-hourglass-outline" size={42} />,
-    link: 'Home'
+    link: null
   },
   {
     name: 'Notes partagées',
     type: WidgetType.NOTE,
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non neque dolor. ',
     icon: <Ionicons name="ios-document-text-outline" size={42}/>,
-    link: 'Home'
+    link: null
   },
   {
     name: 'Map personnalisée',
     type: WidgetType.MAP,
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non neque dolor. ',
     icon: <Feather name='map' size={42}/>,
-    link: 'Home'
+    link: null
   },
 ];
 

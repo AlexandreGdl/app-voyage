@@ -87,7 +87,7 @@ const BottomNavBarComponent: FunctionComponent<Props> = (props: Props) => {
         <TouchableOpacity onPress={handleGoToHome}>
           <SimpleLineIcons name="home" size={24} color="grey" /> 
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => Alert.alert('Accès refusé', 'Désolé, cette page n\'est pas accessible !')}>
+        <TouchableOpacity onPress={() => Alert.alert('En construction', 'Désolé, cette page n\'est pas encore disponible !')}>
           <SimpleLineIcons name="fire" size={24} color="grey" />
         </TouchableOpacity>
         {!props.hideBtn && <TouchableOpacity>

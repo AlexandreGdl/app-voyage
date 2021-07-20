@@ -74,7 +74,7 @@ const HomeScreen: FunctionComponent<Props> = inject((stores: Record<string, unkn
               {
                 props.voyageStore.usersVoyage.map(voyage => {
                   return (
-                    <CardComponent key={voyage._id} onPress={(): void => handleGoToVoyage(voyage._id)} img='https://images.pexels.com/photos/38238/maldives-ile-beach-sun-38238.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' width={Dimensions.get('screen').width/2} height={Dimensions.get('screen').width/2} titleVoyage={voyage.name} flag={voyage.cityName.split(', ')[1]} nbTraveller={4} nbDay={7} date={new Date()}/>
+                    <CardComponent key={voyage._id} onPress={(): void => handleGoToVoyage(voyage._id)} img='https://images.pexels.com/photos/38238/maldives-ile-beach-sun-38238.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' width={Dimensions.get('screen').width/2} height={Dimensions.get('screen').width/2} titleVoyage={voyage.name} flag={voyage.cityName.split(', ')[1]} nbTraveller={voyage.members.length + 1} nbDay={Math.round((new Date(voyage.endDate).getTime() - new Date(voyage.startDate).getTime()) / (1000 * 3600 * 24))} date={voyage.startDate}/>
                   )
                 })
               }

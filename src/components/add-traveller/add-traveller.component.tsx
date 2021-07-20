@@ -77,7 +77,7 @@ const AddTravellerComponent: FunctionComponent<Props> = (props: Props) => {
       <View style={{ maxWidth: '100%' }}>
         <InputLabelComponent 
           label='Par identifiant'
-          placeholder='@Identifiant'
+          placeholder="Ex: 'Alexandre'"
           onChangeText={(text: string) => setIdentifiant(text)}
           labelStyle={styles.label}
           inputStyle={[styles.reset, {maxWidth: '100%' }]}

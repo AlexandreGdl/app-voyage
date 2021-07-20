@@ -1,5 +1,5 @@
 // React
-import { Entypo } from '@expo/vector-icons';
+import { AntDesign, Entypo } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -56,15 +56,12 @@ const ProfileScreen: FunctionComponent<Props> = inject((stores: Record<string, u
           <View style={styles.travellersElement}>
             <UserPictureProfile isActive user={props.userStore as User} withMargin={false} />
             <Text style={styles.username}>{props.userStore.username.charAt(0).toUpperCase() + props.userStore.username.slice(1).toLowerCase()}</Text>
-            <Button
-                onPress={logout}
-                title="Se déconnecter"
-                color="#841584"
-                accessibilityLabel="Learn more about this purple button"
-            />
           </View>
           }
         </View>
+        <TouchableOpacity onPress={logout} style={styles.logout}>
+          <AntDesign name="logout" size={30} color="white" />
+        </TouchableOpacity>
         <View>
             <View style={{ flex: 1 }}>
             <Text style={styles.textVoyage}>Vos voyages</Text>

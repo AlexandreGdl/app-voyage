@@ -43,6 +43,24 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         paddingTop: 30
     },
+    logout: {
+        position: 'absolute',
+        flexDirection: 'row',
+        alignItems: 'center',
+        top: 45,
+        right: 25, 
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+    textLogout: {
+        color: 'white',
+        paddingRight: 10
+    },
     username : {
         fontSize: 18,
         fontFamily: 'Montserrat-Bold',
